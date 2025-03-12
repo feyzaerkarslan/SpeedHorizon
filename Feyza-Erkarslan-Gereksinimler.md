@@ -7,4 +7,5 @@ Fiyat Listesi Oluşturma: Bir hizmet veya ürün için fiyatlandırma detayları
 Şifre Doğrulama (Onay): Kullanıcıların sisteme giriş yapmadan önce şifrelerini doğru girmeleri gerekmektedir. Bu süreç, kimlik doğrulama işlemidir ve güvenlik açısından önemlidir.
 
 Arama Kısmı: Kullanıcıların belirli bir hizmeti, ürünü veya bilgiyi kolayca bulabilmesi için sağlanan bir arama aracıdır. Bu özellik, platform üzerindeki içerikleri hızlıca bulmayı sağlar.
+
 Şikayet& Öneri: Kullanıcıların, sunulan hizmetler hakkında düşüncelerini paylaşabilmesi, platformların gelişmesi ve kullanıcı memnuniyetinin sağlanabilmesi için kritik bir gereksinimdir. Bu doğrultuda, şikayet ve öneri sistemleri, hem kullanıcıların seslerini duyurabilmesini sağlar hem de platform sahiplerine, hizmetlerini sürekli olarak iyileştirme imkanı sunar.
