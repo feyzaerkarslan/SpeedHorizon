@@ -40,4 +40,6 @@ Gereksinimler
 .slider
 
 GEREKSİNİM DAĞILIMLARI:
+Aysu-Ece-Kurt-Gereksinimler.md
+Ahmet-Yıldırım-Gereksinimler.md
 
