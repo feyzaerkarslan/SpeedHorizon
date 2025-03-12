@@ -33,5 +33,5 @@
 
 ## Gereksinim Dağılımları
 
-- [Aysu-Ece-Kurt-Gereksinimler.md](#)
+- [Aysu-Ece-Kurt-Gereksinimler.md](Aysu-Ece-Kurt-Gereksinimler.md)
 - [Ahmet-Yıldırım-Gereksinimler.md](Ahmet-Yıldırım-Gereksinimler.md)
