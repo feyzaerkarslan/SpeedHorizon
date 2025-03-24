@@ -34,8 +34,8 @@
 ## Gereksinim Dağılımları
 
 
-- [Aysu-Ece-Kurt-Gereksinimler.md](Aysu-Ece-Kurt-Gereksinimler.md)
-- [Ahmet-Yıldırım-Gereksinimler.md](Ahmet-Yıldırım-Gereksinimler.md)
-- [Kübra-Nur-Turhan-Gereksinimler.md](Kübra-Nur-Turhan-Gereksinimler.md)
-- [Feyza-Erkarslan-Gereksinimler.md](Feyza-Erkarslan-Gereksinimler.md)
-- [Emre-Şensever-Gereksinimler.md](Emre-Şensever-Gereksinimler.md)
+- [Aysu-Ece-Kurt-Gereksinimler](Aysu-Ece-Kurt-Gereksinimler.md)
+- [Ahmet-Yıldırım-Gereksinimler](Ahmet-Yıldırım-Gereksinimler.md)
+- [Kübra-Nur-Turhan-Gereksinimler](Kübra-Nur-Turhan-Gereksinimler.md)
+- [Feyza-Erkarslan-Gereksinimler](Feyza-Erkarslan-Gereksinimler.md)
+- [Emre-Şensever-Gereksinimler](Emre-Şensever-Gereksinimler.md)
