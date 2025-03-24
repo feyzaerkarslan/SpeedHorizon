@@ -12,4 +12,5 @@ Grup Adı: FAKEECoders
 
 Proje Ekibi: Aysu Ece Kurt, Ahmet Yıldırım, Feyza Erkarslan, Kübra Nur Turhan, Emre Şensever 
 
+1.Gereksinim analizi
 
