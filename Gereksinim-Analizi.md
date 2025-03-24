@@ -32,6 +32,7 @@
 30- Siparişlerim
 
 ## Gereksinim Dağılımları
+ [Ahmet](https://github.com/AhmetYildirim7.png)
 
 - [Aysu-Ece-Kurt-Gereksinimler.md](Aysu-Ece-Kurt-Gereksinimler.md)
 - [Ahmet-Yıldırım-Gereksinimler.md](Ahmet-Yıldırım-Gereksinimler.md)
