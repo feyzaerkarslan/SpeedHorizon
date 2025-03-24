@@ -6,7 +6,7 @@
 4- Sepeti Temizle
 5- Sepete Ekle
 6- Stok Güncelle
-7- Fotoğraf Ekle
+7- Görüntü Ekle
 8- Motor Gücüne Göre Filtrele
 9- Rengine Göre Filtrele
 10- Fiyata Göre Filtrele
