@@ -1,4 +1,4 @@
-Taksit Tablosu: Kullanıcıların, satın alacakları ürün veya hizmetlerin fiyatlarını taksitle ödeme seçeneği ile görebileceği bir tablodur. Bu tablodan, ödeme planları ve taksit seçenekleri ile ilgili bilgi edinilebilir.
+Taksit Seçenekleri: Kullanıcıların, satın alacakları ürün veya hizmetlerin fiyatlarını taksitle ödeme seçeneği ile görebileceği bir tablodur. Bu tablodan, ödeme planları ve taksit seçenekleri ile ilgili bilgi edinilebilir.
 
 Randevu Oluştur: Kullanıcıların hizmet sağlayıcısıyla bir zaman dilimi belirleyerek randevu almasına olanak tanır. 
 
