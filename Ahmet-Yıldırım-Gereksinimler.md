@@ -4,7 +4,7 @@ Bu bölüm, motorlu araçlarla ilgili ürünlerin sunulacağı bir alan olacakt�
 Scooter Modelleri:
 Motor bölümüyle benzer şekilde, scooterlar için bir kategoridir.scooterlar arasındaki farklar, teknik özellikler ve kullanıcı ihtiyaçlarına göre seçim yapma imkanı sunulacaktır. Kullanıcılar ayrıca, scooterların hız, beygir gibi özelliklerini karşılaştırarak kendilerine en uygun olanı seçebilirler.
 
-Yedek Parça: 
+Yedek Parçalar: 
 Bu bölümde, motorlar ve scooterlar için yedek parça satışları yapılabilir. Motorun veya scooterın herhangi bir parçası arızalandığında, orijinal ve kaliteli yedek parçalar burada kolayca bulunabilir. 
 
 İndirimli Ürünler: 
