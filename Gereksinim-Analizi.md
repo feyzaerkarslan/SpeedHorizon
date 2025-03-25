@@ -12,12 +12,12 @@
 10- Fiyata Göre Filtrele
 11- Ürün Bilgisi Ekle
 12- Fiyat Bilgisi Ekle
-13- Şikayet & Öneri
-14- Taksit Seçenekleri 
-15- Randevu Oluştur
-16- Fiyat Listesi 
-17- Şifre Doğrula
-18- Ara
+13- Taksit Seçenekleri 
+14- Randevu Oluştur
+15- Fiyat Listesi 
+16- Şifre Doğrula
+17- Ara
+18-Şikayet & Öneri
 19- Motor Modelleri
 20- Scooter Modelleri
 21- Yedek Parçalar
