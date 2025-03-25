@@ -4,7 +4,7 @@ Kullanıcıların, seçtikleri ürünleri satın almak için sipariş oluşturma
 KART İLE ÖDE:
 Kullanıcıların kredi veya banka kartı kullanarak ödeme yapmasını sağlayan işlemdir. Bu süreç, kart bilgileri (kart numarası, son kullanma tarihi, CVV kodu) gibi verilerin güvenli bir şekilde alınmasını ve işlenmesini içerir. 
 
-NAKİT İLE ÖDE:
+NAKİT İLE ÖDE :
 Kullanıcıların, siparişlerini teslim alırken veya belirli bir noktada nakit olarak ödeme yapmasını sağlayan seçenektir. Nakit ödeme, genellikle teslimatta ödeme (kapıda ödeme) veya mağazadan teslim alma gibi yöntemlerle desteklenir.
 
 SEPETİ TEMİZLE:
