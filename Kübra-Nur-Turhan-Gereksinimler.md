@@ -1,4 +1,4 @@
-SİPARİŞ VER:
+SİPARİŞ VER  :
 Kullanıcıların, seçtikleri ürünleri satın almak için sipariş oluşturmasını sağlayan süreçtir. Bu gereksinim, siparişin sistemde kayıt altına alınmasını, sipariş detaylarının belirlenmesini ve ödeme adımına yönlendirilmesini içerir. Sipariş verme işlemi, kullanıcının ödeme yöntemi seçimi ve teslimat bilgilerini onaylamasıyla tamamlanır.
 
 KART İLE ÖDE:
