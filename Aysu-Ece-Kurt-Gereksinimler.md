@@ -1,7 +1,7 @@
 Hesap Oluştur :
 Bu bölüm, yeni kullanıcıların web sitesine kaydolmalarını sağlar. Kullanıcılar ad, soyad, e-posta adresi, telefon numarası, şifre gibi bilgilerini girerek hesap oluşturabilirler.
 
-Giriş Yap :
+Giriş Yap:
 Zaten hesap oluşturmuş kullanıcıların, sisteme giriş yapabilmesi için bir alan sağlanır. Kullanıcılar, e-posta adresi ve şifreleriyle giriş yapabilirler.Giriş yaptıktan sonra kullanıcılar, kişisel bilgilerinin, sipariş geçmişlerinin ve favorilerinin bulunduğu sayfalara erişebilirler.
 
 
