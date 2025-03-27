@@ -1,3 +1,2 @@
-<img src="![Durum Diyagramı](https://github.com/user-attachments/assets/d93445ee-0188-415d-a71b-4815b96b8fef)
-" width="300">
+![Durum Diyagramı](https://github.com/user-attachments/assets/296a2bfe-fb9a-4e50-b95c-8619bb724e14)
 
