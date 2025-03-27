@@ -13,8 +13,6 @@ Kullanıcılar için cazip fırsatlar sunulacak olan bu alan, belirli ürünleri
 Aksesuarlar:
 Bu bölümde, motorlar ve scooterlar için gerekli olan, sürüş deneyimini geliştiren ya da güvenliği artıran aksesuarlar yer alır. Kasklar, eldivenler, ışıklar, güvenlik kilitleri gibi çeşitli aksesuarlar burada satışa sunulabilir.
 
-Bayiler: 
-Motor ve scooter satışı yapan yerel bayileri tanıttığınız bu bölüm, kullanıcılara en yakın bayileri aramalarına olanak sağlar.
+Bayi&Servis 
+Bayi; motor ve scooter satışı yapan yerel bayileri tanıttığınız bu bölüm, kullanıcılara en yakın bayileri aramalarına olanak sağlar.Servis; motor ve scooter sahipleri için bakım, onarım ve teknik destek sunan servislerin bulunduğu bölümdür. Kullanıcılar, araçlarının periyodik bakımını veya arıza onarımlarını yapan güvenilir servisleri burada bulabilir.
 
-Servisler:
-Motor ve scooter sahipleri için bakım, onarım ve teknik destek sunan servislerin bulunduğu bölümdür. Kullanıcılar, araçlarının periyodik bakımını veya arıza onarımlarını yapan güvenilir servisleri burada bulabilir.
