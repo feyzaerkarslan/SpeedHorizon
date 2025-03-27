@@ -1,1 +1,1 @@
-![Uploading Durum Diyagramı.png…]()
+
