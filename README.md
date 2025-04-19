@@ -35,7 +35,7 @@ pnpm dev
 bun dev
 ```
 
-Tarayıcınızda [http://localhost:3005](http://localhost:3005) adresini açarak sonucu görebilirsiniz.
+Tarayıcınızda [http://localhost:3002](http://localhost:3002) adresini açarak sonucu görebilirsiniz.
 
 `app/page.tsx` dosyasını düzenleyerek sayfayı düzenlemeye başlayabilirsiniz. Dosyayı düzenledikçe sayfa otomatik olarak güncellenir.
 

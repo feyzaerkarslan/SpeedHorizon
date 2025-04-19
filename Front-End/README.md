@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-Tarayıcınızda [http://localhost:3005](http://localhost:3005) adresine giderek uygulamayı görüntüleyebilirsiniz.
+Tarayıcınızda [http://localhost:3002](http://localhost:3002) adresine giderek uygulamayı görüntüleyebilirsiniz.
 
 ## Sayfalar
 
