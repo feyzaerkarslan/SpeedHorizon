@@ -1,22 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SpeedHorizon
 
-## Getting Started
+Proje Tanımı: Bu proje, motor ve motor aksesuarları satışı yapan bir e-ticaret platformu oluşturmayı hedeflemektedir. Kullanıcılar, motor ve aksesuarlarını kolayca inceleyip satın alabilecekleri bir online mağaza deneyimi yaşayacaklardır.
 
-First, run the development server:
+Proje Kategorisi: E-Ticaret ve tanıtım sitesi
+
+Referans Uygulama: https://www.yamaha-motor.eu/tr/tr/home/
+
+Uygulama Adresi: 
+
+Grup Adı: FAKEECoders
+
+Proje Ekibi: Aysu Ece Kurt, Ahmet Yıldırım, Feyza Erkarslan, Kübra Nur Turhan, Emre Şensever 
+
+1. [Gereksinim Analizi](Gereksinim-Analizi.md)
+2. [Durum Diyagramı](Durum-Diyagramı.md)   
+3. [Durum Senaryoları](Durum-Senaryoları.md)
+4. [Front-End](./Front-End)
+
+## Next.js Hakkında
+
+Bu proje, [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) kullanılarak oluşturulmuş bir [Next.js](https://nextjs.org) projesidir.
+
+### Başlarken
+
+Geliştirme sunucusunu başlatmak için:
 
 ```bash
 npm run dev
-# or
+# veya
 yarn dev
-# or
+# veya
 pnpm dev
-# or
+# veya
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açarak sonucu görebilirsiniz.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`app/page.tsx` dosyasını düzenleyerek sayfayı düzenlemeye başlayabilirsiniz. Dosyayı düzenledikçe sayfa otomatik olarak güncellenir.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
