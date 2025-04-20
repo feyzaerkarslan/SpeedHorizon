@@ -8,7 +8,7 @@ export default function DealershipsPage() {
   const [selectedCity, setSelectedCity] = useState<string>('');
   const [showServiceOnly, setShowServiceOnly] = useState<boolean>(false);
   
-  // Şehirleri alll
+  // Şehirleri alllll
   
   const cities = Array.from(new Set(dealerships.map(d => d.city))).sort();
   
