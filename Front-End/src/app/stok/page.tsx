@@ -223,5 +223,5 @@ export default function StokPage() {
         </div>
       </div>
     </div>
-  );
+  );   
 } 
