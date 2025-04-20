@@ -13,7 +13,7 @@ export default function MotorcycleModels() {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
-  const [sortOrder, setSortOrder] = useState<string>('featured');
+  const [sortOrder, setSortOrder] = useState<string>('featured'); 
   
   // Renkleri elde et
   const colors = Array.from(new Set(motorcycles.map(m => m.color)));
