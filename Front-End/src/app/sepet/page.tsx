@@ -296,5 +296,5 @@ export default function SepetPage() {
         )}
       </div>
     </div>
-  );
+  );    
 } 
