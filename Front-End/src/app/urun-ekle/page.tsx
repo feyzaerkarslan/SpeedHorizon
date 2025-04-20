@@ -1,15 +1,15 @@
-import React from 'react';
+ import React from 'react';
 import Link from 'next/link';
-
+ 
 export default function UrunEklePage() {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="bg-blue-700 px-6 py-4">
-            <h1 className="text-2xl font-bold text-white">Yeni Ürün Ekle</h1>
+            <h1 className="text-2xl font-bold text-white">Yeni Ürün Ekle</h1>      
           </div>
-          
+            
           <form className="p-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -200,4 +200,4 @@ export default function UrunEklePage() {
       </div>
     </div>
   );
-} 
+}  
