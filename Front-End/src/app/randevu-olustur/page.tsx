@@ -12,7 +12,7 @@ export default function AppointmentPage() {
   const searchParams = useSearchParams();
   const user = getCurrentUser();
   
-  // URL'den bayi parametresini al
+  // URL'den bayi parametresi al
   const urlDealershipId = searchParams.get('dealership');
   
   // Form state
