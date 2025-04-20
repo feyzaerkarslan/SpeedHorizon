@@ -18,7 +18,7 @@ export default function MotorcycleModels() {
   
   const colors = Array.from(new Set(motorcycles.map(m => m.color)));
   
-  // Min ve Max beygir gücü değerleri bulunuyor
+  // Min ve Max beygir gücü değerleri bulunuyorrr
   const powerValues = motorcycles
     .filter(m => m.power) // Güç değeri olmayanları filtrele
     .map(m => parseInt(m.power!.split(' ')[0])); // HP değerlerini al
