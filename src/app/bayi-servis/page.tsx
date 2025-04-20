@@ -9,7 +9,8 @@ export default function DealershipsPage() {
   const [showServiceOnly, setShowServiceOnly] = useState<boolean>(false);
   //Yorum satırı
   // Şehirler alınıyorrrr
-  //yorumsatırı2
+  //yorumsatırı
+  //yorumsatırı3
   const cities = Array.from(new Set(dealerships.map(d => d.city))).sort();       
   
   // Filtrelenmiş bayileri al
