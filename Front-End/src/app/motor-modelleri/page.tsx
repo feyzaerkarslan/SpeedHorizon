@@ -15,7 +15,7 @@ export default function MotorcycleModels() {
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
   const [sortOrder, setSortOrder] = useState<string>('featured');
   
-  // Renkleri elde et
+  // Renkleri elde ettt
   const colors = Array.from(new Set(motorcycles.map(m => m.color)));
   
   // Min ve Max beygir gücü değerlerini bullll
