@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-
+ 
 // Demo ürün veritabanı
 const urunler = [
   {
