@@ -7,7 +7,7 @@ import { dealerships, Dealership, getDealershipsByCity } from '@/data/dealership
 export default function DealershipsPage() {
   const [selectedCity, setSelectedCity] = useState<string>('');
   const [showServiceOnly, setShowServiceOnly] = useState<boolean>(false);
-  
+  //Yorum satırı
   // Şehirler alınıyorrrr
   const cities = Array.from(new Set(dealerships.map(d => d.city))).sort();       
   
