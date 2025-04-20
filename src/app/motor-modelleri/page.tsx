@@ -20,6 +20,7 @@ export default function MotorcycleModels() {
   //yorum satırı
   // Min ve Max beygir gücü değerleri bulunuyor
   //yarumsatırı2
+  //yorumsatırı3
   const powerValues = motorcycles
     .filter(m => m.power) // Güç değeri olmayanları filtrele
     .map(m => parseInt(m.power!.split(' ')[0])); // HP değerlerini al
