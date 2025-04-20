@@ -10,7 +10,7 @@ export default function DealershipsPage() {
   //Yorum satırı
   // Şehirler alınıyorrrr
   //yorumsatırı
-  //yorumsatırı3
+  //olartık
   const cities = Array.from(new Set(dealerships.map(d => d.city))).sort();       
   
   // Filtrelenmiş bayileri al
