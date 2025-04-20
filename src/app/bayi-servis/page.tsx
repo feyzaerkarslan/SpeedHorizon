@@ -9,7 +9,7 @@ export default function DealershipsPage() {
   const [showServiceOnly, setShowServiceOnly] = useState<boolean>(false);
   
   // Şehirleri al
-  const cities = Array.from(new Set(dealerships.map(d => d.city))).sort();
+  const cities = Array.from(new Set(dealerships.map(d => d.city))).sort();       
   
   // Filtrelenmiş bayileri al
   const filteredDealerships: Dealership[] = dealerships.filter(dealership => {
