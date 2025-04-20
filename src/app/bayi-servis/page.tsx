@@ -21,7 +21,7 @@ export default function DealershipsPage() {
       return false;
     }
     
-    return true;
+    return true; 
   });
   
   return (
