@@ -19,7 +19,7 @@ export default function FeedbackPage() {
   const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   
-  // Form doğrulama
+  // Form doğrula
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
     
