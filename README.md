@@ -15,7 +15,7 @@ Proje Ekibi: Aysu Ece Kurt, Ahmet Yıldırım, Feyza Erkarslan, Kübra Nur Turha
 1. [Gereksinim Analizi](Gereksinim-Analizi.md)
 2. [Durum Diyagramı](Durum-Diyagramı.md)   
 3. [Durum Senaryoları](Durum-Senaryoları.md)
-4. [Front-End](./Front-End)
+4. [Frontend](Frontend.md)
 
 ## Next.js Hakkında
 
