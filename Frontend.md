@@ -1,3 +1,5 @@
+Frontend'i yayınladığımız domain adresi: http://localhost:3002
+
 AYSU ECE KURT FRONTEND
 1. Giriş yapma  
 2. Çıkış yapma  
