@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon, CalendarIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,6 +38,20 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
+              href="/appointment"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
+            >
+              <CalendarIcon className="w-5 h-5" />
+              Randevu Al
+            </Link>
+            <Link
+              href="/feedback"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
+            >
+              <ChatBubbleBottomCenterTextIcon className="w-5 h-5" />
+              Şikayet/Öneri
+            </Link>
+            <Link
               href="/cart"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
             >
@@ -45,7 +59,14 @@ export default function Navbar() {
               Sepetim
             </Link>
             <Link
-              href="/login"
+              href="/profile"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
+            >
+              <UserIcon className="w-5 h-5" />
+              Profilim
+            </Link>
+            <Link
+              href="/auth/login"
               className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
             >
               Giriş Yap

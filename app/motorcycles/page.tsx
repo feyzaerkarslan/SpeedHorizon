@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AdjustmentsHorizontalIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import StockBadge from '@/components/StockBadge';
 
 const motorcycles = [
   {
@@ -11,6 +12,7 @@ const motorcycles = [
     power: '65 HP',
     color: 'Kırmızı',
     image: '/motorcycle-1.jpg',
+    stock: 5,
   },
   {
     id: 2,
@@ -19,8 +21,17 @@ const motorcycles = [
     power: '125 HP',
     color: 'Siyah',
     image: '/motorcycle-2.jpg',
+    stock: 3,
   },
-  // Add more motorcycles here
+  {
+    id: 3,
+    name: 'CityRunner 125',
+    price: 89999,
+    power: '12 HP',
+    color: 'Mavi',
+    image: '/motorcycle-3.jpg',
+    stock: 0,
+  },
 ];
 
 export default function Motorcycles() {
@@ -88,13 +99,19 @@ export default function Motorcycles() {
               <div className="space-y-2">
                 <p className="text-gray-600">Motor Gücü: {motorcycle.power}</p>
                 <p className="text-gray-600">Renk: {motorcycle.color}</p>
-                <p className="text-xl font-bold text-blue-600">
-                  {motorcycle.price.toLocaleString('tr-TR')} TL
-                </p>
+                <div className="flex justify-between items-center">
+                  <p className="text-xl font-bold text-blue-600">
+                    {motorcycle.price.toLocaleString('tr-TR')} TL
+                  </p>
+                  <StockBadge stock={motorcycle.stock} />
+                </div>
               </div>
               <div className="mt-4 space-x-2">
-                <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                  Sepete Ekle
+                <button 
+                  className={`${motorcycle.stock > 0 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'} text-white px-4 py-2 rounded`}
+                  disabled={motorcycle.stock === 0}
+                >
+                  {motorcycle.stock > 0 ? 'Sepete Ekle' : 'Stokta Yok'}
                 </button>
                 <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
                   Detaylar

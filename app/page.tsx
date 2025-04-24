@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import SearchBar from '@/components/SearchBar'
 
 export default function Home() {
   const categories = [
@@ -39,6 +40,9 @@ export default function Home() {
             Premium motosiklet modelleri, yedek parçalar ve aksesuarlar ile
             hayalinizdeki motosiklete sahip olun.
           </p>
+          <div className="w-full max-w-2xl mb-8">
+            <SearchBar />
+          </div>
           <Link
             href="/motorcycles"
             className="bg-blue-600 text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-blue-700 transition"
