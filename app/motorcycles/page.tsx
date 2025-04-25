@@ -1,125 +1,218 @@
 'use client';
 
 import { useState } from 'react';
-import { FunnelIcon } from '@heroicons/react/24/outline';
-import StockBadge from '@/components/StockBadge';
+import Link from 'next/link';
+import { AdjustmentsHorizontalIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-const motorcycles = [
-  {
-    id: 1,
-    name: 'SpeedMaster 650',
-    price: 249999,
-    power: '65 HP',
-    color: 'Kırmızı',
-    image: '/motorcycle-1.jpg',
-    stock: 5,
-  },
-  {
-    id: 2,
-    name: 'RoadKing 1000',
-    price: 399999,
-    power: '125 HP',
-    color: 'Siyah',
-    image: '/motorcycle-2.jpg',
-    stock: 3,
-  },
-  {
-    id: 3,
-    name: 'CityRunner 125',
-    price: 89999,
-    power: '12 HP',
-    color: 'Mavi',
-    image: '/motorcycle-3.jpg',
-    stock: 0,
-  },
-];
+export default function MotorcyclesPage() {
+  const [activeCategory, setActiveCategory] = useState('Tümü');
+  const [showFilters, setShowFilters] = useState(false);
 
-export default function Motorcycles() {
-  const [priceFilter, setPriceFilter] = useState('all');
-  const [powerFilter, setPowerFilter] = useState('all');
-  const [colorFilter, setColorFilter] = useState('all');
+  const categories = [
+    'Tümü',
+    'Adventure',
+    'Hyper Naked',
+    'Off Road',
+    'Sport Heritage',
+    'Sport Touring',
+    'Supersport'
+  ];
+
+  const motorcycles = [
+    {
+      id: 'mt-09',
+      name: 'MT-09',
+      category: 'Hyper Naked',
+      price: 485000,
+      image: '/motorcycles/mt-09/1.jpg',
+      new: true,
+      popular: true
+    },
+    {
+      id: 'r1',
+      name: 'R1',
+      category: 'Supersport',
+      price: 850000,
+      image: '/motorcycles/r1/1.jpg',
+      new: false,
+      popular: true
+    },
+    {
+      id: 'tracer-9-gt',
+      name: 'Tracer 9 GT',
+      category: 'Sport Touring',
+      price: 545000,
+      image: '/motorcycles/tracer-9-gt/1.jpg',
+      new: true,
+      popular: false
+    },
+    {
+      id: 'tenere-700',
+      name: 'Tenere 700',
+      category: 'Adventure',
+      price: 495000,
+      image: '/motorcycles/tenere-700/1.jpg',
+      new: false,
+      popular: true
+    },
+    {
+      id: 'xsr900',
+      name: 'XSR900',
+      category: 'Sport Heritage',
+      price: 515000,
+      image: '/motorcycles/xsr900/1.jpg',
+      new: false,
+      popular: false
+    },
+    {
+      id: 'yz450f',
+      name: 'YZ450F',
+      category: 'Off Road',
+      price: 385000,
+      image: '/motorcycles/yz450f/1.jpg',
+      new: true,
+      popular: false
+    }
+  ];
+
+  const filteredMotorcycles = 
+    activeCategory === 'Tümü' 
+      ? motorcycles 
+      : motorcycles.filter(moto => moto.category === activeCategory);
 
   return (
-    <div className="max-w-7xl mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8">Motor Modelleri</h1>
-      
-      {/* Filters */}
-      <div className="bg-white p-4 rounded-lg shadow mb-8">
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-2">
-            <FunnelIcon className="h-5 w-5 text-gray-500" />
-            <span className="font-medium">Filtrele:</span>
-          </div>
-          
-          <select
-            value={priceFilter}
-            onChange={(e) => setPriceFilter(e.target.value)}
-            className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          >
-            <option value="all">Fiyat</option>
-            <option value="low">200.000 TL altı</option>
-            <option value="mid">200.000 TL - 300.000 TL</option>
-            <option value="high">300.000 TL üzeri</option>
-          </select>
-
-          <select
-            value={powerFilter}
-            onChange={(e) => setPowerFilter(e.target.value)}
-            className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          >
-            <option value="all">Motor Gücü</option>
-            <option value="low">50 HP altı</option>
-            <option value="mid">50-100 HP</option>
-            <option value="high">100 HP üzeri</option>
-          </select>
-
-          <select
-            value={colorFilter}
-            onChange={(e) => setColorFilter(e.target.value)}
-            className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          >
-            <option value="all">Renk</option>
-            <option value="red">Kırmızı</option>
-            <option value="black">Siyah</option>
-            <option value="blue">Mavi</option>
-          </select>
+    <div className="bg-white">
+      {/* Hero banner */}
+      <div className="bg-black text-white relative h-[40vh] min-h-[320px] flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 z-10" />
+        <div className="absolute inset-0 bg-[url('/motorcycles-hero.jpg')] bg-cover bg-center" />
+        <div className="container mx-auto px-4 relative z-20">
+          <h1 className="text-5xl font-bold mb-4">Motor Modelleri</h1>
+          <p className="text-xl max-w-2xl">
+            SpeedHorizon'un güçlü, çevik ve performans odaklı motosiklet modellerini keşfedin. 
+            Her sürüş tarzına uygun bir motosiklet bulunmaktadır.
+          </p>
         </div>
       </div>
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {motorcycles.map((motorcycle) => (
-          <div key={motorcycle.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-              {/* Replace with actual image */}
-              <div className="w-full h-48 bg-gray-300" />
+      {/* Category navigation */}
+      <div className="sticky top-16 bg-white border-b border-gray-200 z-30">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
+            {/* Category tabs for desktop */}
+            <div className="hidden md:flex space-x-8">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  className={`text-sm font-medium pb-2 border-b-2 transition-colors ${
+                    activeCategory === category
+                      ? 'border-blue-600 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+                  onClick={() => setActiveCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">{motorcycle.name}</h3>
-              <div className="space-y-2">
-                <p className="text-gray-600">Motor Gücü: {motorcycle.power}</p>
-                <p className="text-gray-600">Renk: {motorcycle.color}</p>
-                <div className="flex justify-between items-center">
-                  <p className="text-xl font-bold text-blue-600">
-                    {motorcycle.price.toLocaleString('tr-TR')} TL
-                  </p>
-                  <StockBadge stock={motorcycle.stock} />
+
+            {/* Mobile dropdown */}
+            <div className="md:hidden w-full">
+              <button
+                className="flex items-center justify-between w-full py-2 px-4 border border-gray-300 rounded-md bg-white text-gray-700"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <span>{activeCategory}</span>
+                <ChevronDownIcon className="h-5 w-5" />
+              </button>
+              {showFilters && (
+                <div className="absolute z-50 mt-1 w-full bg-white shadow-lg rounded-md overflow-hidden">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                      onClick={() => {
+                        setActiveCategory(category);
+                        setShowFilters(false);
+                      }}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Filters button */}
+            <button className="text-gray-500 hover:text-gray-700 flex items-center">
+              <AdjustmentsHorizontalIcon className="h-5 w-5 mr-1" />
+              <span className="text-sm font-medium">Filtreler</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Motorcycles grid */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredMotorcycles.map((motorcycle) => (
+            <Link 
+              key={motorcycle.id} 
+              href={`/motorcycles/${motorcycle.id}`}
+              className="group"
+            >
+              <div className="bg-gray-100 overflow-hidden aspect-w-16 aspect-h-9 rounded-lg relative">
+                {/* Burada gerçek bir resim olmalı */}
+                <div className="w-full h-56 bg-gray-200 group-hover:scale-105 transition-transform duration-300"></div>
+                
+                {/* Badges */}
+                <div className="absolute top-4 left-4 flex space-x-2">
+                  {motorcycle.new && (
+                    <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded">Yeni</span>
+                  )}
+                  {motorcycle.popular && (
+                    <span className="bg-red-600 text-white text-xs px-2 py-1 rounded">Popüler</span>
+                  )}
                 </div>
               </div>
-              <div className="mt-4 space-x-2">
-                <button 
-                  className={`${motorcycle.stock > 0 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'} text-white px-4 py-2 rounded`}
-                  disabled={motorcycle.stock === 0}
-                >
-                  {motorcycle.stock > 0 ? 'Sepete Ekle' : 'Stokta Yok'}
-                </button>
-                <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
-                  Detaylar
-                </button>
+              <div className="mt-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-bold group-hover:text-blue-600 transition-colors">
+                    {motorcycle.name}
+                  </h3>
+                  <span className="text-sm bg-gray-100 px-2 py-1 rounded">
+                    {motorcycle.category}
+                  </span>
+                </div>
+                <p className="mt-2 font-medium text-lg">
+                  {motorcycle.price.toLocaleString('tr-TR')} TL
+                </p>
+                <div className="mt-3 text-blue-600 text-sm font-medium group-hover:underline">
+                  Detayları Görüntüle
+                </div>
               </div>
-            </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Call to action */}
+      <div className="bg-gray-100 py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">Hayalinizdeki Motosikleti Bulamadınız mı?</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto mb-8">
+            SpeedHorizon bayilerinde daha fazla model bulabilirsiniz. Size en yakın bayimizi ziyaret edin
+            veya bir temsilci ile görüşün.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <Link href="/dealers" className="bg-blue-600 text-white px-8 py-3 font-medium hover:bg-blue-700 transition-colors">
+              Bayi Bulun
+            </Link>
+            <Link href="/contact" className="bg-white text-blue-600 border border-blue-600 px-8 py-3 font-medium hover:bg-gray-50 transition-colors">
+              Bize Ulaşın
+            </Link>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

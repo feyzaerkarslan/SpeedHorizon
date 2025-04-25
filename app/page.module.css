@@ -1,0 +1,65 @@
+.heroSection {
+  height: 80vh;
+  max-height: 800px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background-image: url('/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+  z-index: 10;
+}
+
+.categoryCard {
+  position: relative;
+  height: 18rem;
+  overflow: hidden;
+}
+
+.categoryCardBg {
+  position: absolute;
+  inset: 0;
+  background-color: #d1d5db;
+  background-size: cover;
+  background-position: center;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+.categoryCardOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modelCard {
+  position: relative;
+  height: 16rem;
+  overflow: hidden;
+}
+
+.modelCardBg {
+  position: absolute;
+  inset: 0;
+  background-color: #d1d5db;
+  background-size: cover;
+  background-position: center;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+} 

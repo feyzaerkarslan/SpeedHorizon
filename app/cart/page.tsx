@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import CartItem from '@/components/CartItem';
+import CartItem from '@/src/components/CartItem';
 import Link from 'next/link';
 
 // Örnek sepet verileri

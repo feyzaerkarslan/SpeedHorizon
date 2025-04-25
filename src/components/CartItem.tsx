@@ -25,12 +25,7 @@ export default function CartItem({
   return (
     <div className="flex items-center gap-4 py-4 border-b">
       <div className="w-24 h-24 relative bg-gray-100 rounded">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          className="object-cover rounded"
-        />
+        <div className="absolute inset-0 bg-gray-200" />
       </div>
       <div className="flex-1">
         <h3 className="text-lg font-semibold">{name}</h3>
