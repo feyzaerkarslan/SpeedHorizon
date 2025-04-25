@@ -4,6 +4,7 @@ const nextConfig = {
   images: { unoptimized: true },
   trailingSlash: true,
   basePath: '/speedhorizon',
+  assetPrefix: '/speedhorizon',
 };
 
 module.exports = nextConfig; 
