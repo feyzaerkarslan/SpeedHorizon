@@ -1,12 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Tab } from '@headlessui/react';
 import { HeartIcon, TruckIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 import React from 'react';
-import { MdOutlineChevronRight, MdOutlineSpeed } from 'react-icons/md';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -21,7 +19,7 @@ const getMotorcycle = (id: string) => {
       category: 'Hyper Naked',
       price: 485000,
       colors: ['Siyah', 'Mavi', 'Gri'],
-      description: 'Yeni nesil 889cc CP3 motoru, ultra hafif alüminyum şasisi ve en gelişmiş elektronik kontrol teknolojisi ile MT-09, Yamaha\'nın ikonik Hyper Naked tasarımını bir adım öteye taşıyor.',
+      description: 'Yeni nesil 889cc CP3 motoru, ultra hafif alüminyum şasisi ve en gelişmiş elektronik kontrol teknolojisi ile MT-09, Yamaha&apos;nın ikonik Hyper Naked tasarımını bir adım öteye taşıyor.',
       features: [
         '889cc sıvı soğutmalı DOHC 4 zamanlı 3 silindirli motor',
         'Yeni hafif alüminyum döküm şasi',
@@ -55,7 +53,7 @@ const getMotorcycle = (id: string) => {
       category: 'Supersport',
       price: 850000,
       colors: ['Mavi', 'Siyah', 'Kırmızı'],
-      description: 'YZF-R1, Yamaha\'nın yarış pistindeki MotoGP teknolojisini sokağa taşımak için tasarlanmış, en gelişmiş süper spor motosikletidir.',
+      description: 'YZF-R1, Yamaha&apos;nın yarış pistindeki MotoGP teknolojisini sokağa taşımak için tasarlanmış, en gelişmiş süper spor motosikletidir.',
       features: [
         '998cc sıvı soğutmalı, crossplane 4 zamanlı motor',
         'MotoGP teknolojisi elektronik kontrol sistemleri',
@@ -318,7 +316,7 @@ export default function MotorcycleDetails({ params }: { params: { id: string } }
                   <TruckIcon className="h-6 w-6 text-blue-600 mr-3 flex-shrink-0" />
                   <div>
                     <h4 className="font-medium">Ücretsiz Teslimat</h4>
-                    <p className="text-sm text-gray-600">Tüm Türkiye'ye ücretsiz teslimat</p>
+                    <p className="text-sm text-gray-600">Tüm Türkiye&apos;ye ücretsiz teslimat</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -333,7 +331,7 @@ export default function MotorcycleDetails({ params }: { params: { id: string } }
 
             <div className="bg-gray-50 p-6 rounded-lg">
               <h3 className="text-lg font-semibold mb-4">Ödeme Seçenekleri</h3>
-              <p className="text-gray-700 mb-4">12 aya varan taksit seçenekleri ile SpeedHorizon'dan satın alabilirsiniz.</p>
+              <p className="text-gray-700 mb-4">12 aya varan taksit seçenekleri ile SpeedHorizon&apos;dan satın alabilirsiniz.</p>
               <Link href="/financing" className="text-blue-600 hover:text-blue-800 font-medium">
                 Finansman seçeneklerini görüntüle
               </Link>

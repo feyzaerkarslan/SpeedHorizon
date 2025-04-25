@@ -78,7 +78,7 @@ export default function Home() {
 
       {/* SPEEDHORIZON'U KEŞFET */}
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">SPEEDHORIZON'U KEŞFEDİN</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">SPEEDHORIZON&apos;U KEŞFEDİN</h2>
         
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -134,7 +134,7 @@ export default function Home() {
 
       {/* SPEEDHORIZON'DAN DAHA FAZLA BİLGİ ALIN */}
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">SPEEDHORIZON'DAN DAHA FAZLA BİLGİ ALIN</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">SPEEDHORIZON&apos;DAN DAHA FAZLA BİLGİ ALIN</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link href="/price-list" className="bg-blue-600 text-white p-8 text-center hover:bg-blue-700 transition">
@@ -144,7 +144,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-2">THE DARK SIDE OF JAPAN</h3>
           </Link>
           <Link href="/neo-dual-battery" className="bg-gray-800 text-white p-8 text-center hover:bg-gray-700 transition">
-            <h3 className="text-xl font-semibold mb-2">NEO'S ÇİFT BATARYALI</h3>
+            <h3 className="text-xl font-semibold mb-2">NEO&apos;S ÇİFT BATARYALI</h3>
           </Link>
           <Link href="/corporate" className="bg-gray-700 text-white p-8 text-center hover:bg-gray-600 transition">
             <h3 className="text-xl font-semibold mb-2">KURUMSAL</h3>
