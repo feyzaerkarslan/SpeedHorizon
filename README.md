@@ -15,7 +15,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [https://dainty-sopapillas-63df79.netlify.app/](https://dainty-sopapillas-63df79.netlify.app/) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
@@ -30,9 +30,9 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy on Netlify
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The project is deployed on [Netlify](https://dainty-sopapillas-63df79.netlify.app/).
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 =======
@@ -44,7 +44,7 @@ Proje Kategorisi: E-Ticaret ve tanıtım sitesi
 
 Referans Uygulama: https://www.yamaha-motor.eu/tr/tr/home/
 
-Uygulama Adresi: 
+Uygulama Adresi: https://dainty-sopapillas-63df79.netlify.app/
 
 Grup Adı: FAKEECoders
 
