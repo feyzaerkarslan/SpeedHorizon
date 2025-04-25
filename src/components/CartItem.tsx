@@ -1,14 +1,12 @@
 'use client';
 
 import { TrashIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 
 interface CartItemProps {
   id: number;
   name: string;
   price: number;
   quantity: number;
-  image: string;
   onUpdateQuantity: (id: number, quantity: number) => void;
   onRemove: (id: number) => void;
 }
@@ -18,7 +16,6 @@ export default function CartItem({
   name,
   price,
   quantity,
-  image,
   onUpdateQuantity,
   onRemove,
 }: CartItemProps) {

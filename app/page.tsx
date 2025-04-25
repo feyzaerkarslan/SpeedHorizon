@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import SearchBar from '@/components/SearchBar'
 import styles from './page.module.css'
 

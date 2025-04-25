@@ -88,9 +88,8 @@ export default function MotorcyclesPage() {
         <div className="absolute inset-0 bg-[url('/motorcycles-hero.jpg')] bg-cover bg-center" />
         <div className="container mx-auto px-4 relative z-20">
           <h1 className="text-5xl font-bold mb-4">Motor Modelleri</h1>
-          <p className="text-xl max-w-2xl">
-            SpeedHorizon'un güçlü, çevik ve performans odaklı motosiklet modellerini keşfedin. 
-            Her sürüş tarzına uygun bir motosiklet bulunmaktadır.
+          <p className="text-lg mb-8">
+            SpeedHorizon motosikletleri, tutkunun ve mühendisliğin mükemmel birleşimidir. Her model, sürücüsüne benzersiz bir deneyim sunmak için tasarlanmıştır. Seçkin tasarım, güçlü performans ve üstün kalite standartlarıyla üretilen motosikletlerimiz, her sürüşü bir maceraya dönüştürür.
           </p>
         </div>
       </div>

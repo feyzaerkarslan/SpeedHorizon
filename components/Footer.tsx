@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   const menuGroups = [
@@ -73,13 +74,13 @@ export default function Footer() {
             </address>
             <div className="flex space-x-4 mb-8">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400">
-                Facebook
+                <FaFacebook size={24} />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400">
-                Twitter
+                <FaTwitter size={24} />
               </a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400">
-                Instagram
+                <FaInstagram size={24} />
               </a>
             </div>
           </div>

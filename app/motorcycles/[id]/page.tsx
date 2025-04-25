@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Tab } from '@headlessui/react';
 import { HeartIcon, TruckIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import React from 'react';
+import { MdOutlineChevronRight, MdOutlineSpeed } from 'react-icons/md';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -335,6 +337,33 @@ export default function MotorcycleDetails({ params }: { params: { id: string } }
               <Link href="/financing" className="text-blue-600 hover:text-blue-800 font-medium">
                 Finansman seçeneklerini görüntüle
               </Link>
+            </div>
+
+            <div className="mt-8">
+              <div className="bg-gray-100 p-4 rounded-lg mb-6">
+                <h3 className="text-lg font-semibold mb-2">Ödeme Seçenekleri</h3>
+                <p>Kredi kartına 12 aya varan taksit imkanlarıyla bu motosikleti hemen satın alabilirsiniz.</p>
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 pt-8 mt-8">
+              <h3 className="text-xl font-semibold mb-4">Kullanıcı Yorumları</h3>
+              <div className="space-y-4">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center mb-2">
+                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                      MB
+                    </div>
+                    <div className="ml-3">
+                      <p className="font-semibold">Mehmet B.</p>
+                      <div className="flex text-yellow-400">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Bu motosikleti 2 yıldır kullanıyorum ve performansından çok memnunum. Yakıt tüketimi oldukça ekonomik ve sürüş konforu üst düzeyde.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

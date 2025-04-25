@@ -11,14 +11,12 @@ const initialCartItems = [
     name: 'SpeedMaster 650',
     price: 249999,
     quantity: 1,
-    image: '/motorcycle-1.jpg',
   },
   {
     id: 2,
     name: 'RoadKing 1000',
     price: 399999,
     quantity: 1,
-    image: '/motorcycle-2.jpg',
   },
 ];
 
