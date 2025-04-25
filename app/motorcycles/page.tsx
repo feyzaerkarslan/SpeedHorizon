@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AdjustmentsHorizontalIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { FunnelIcon } from '@heroicons/react/24/outline';
 import StockBadge from '@/components/StockBadge';
 
 const motorcycles = [

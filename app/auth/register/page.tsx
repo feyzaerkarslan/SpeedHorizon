@@ -28,7 +28,8 @@ export default function Register() {
       // Burada gerçek API çağrısı yapılacak
       console.log('Kayıt başarılı:', formData);
       router.push('/auth/login?registered=true');
-    } catch (err) {
+    } catch (error) {
+      console.error('Kayıt hatası:', error);
       setError('Kayıt sırasında bir hata oluştu');
     }
   };
