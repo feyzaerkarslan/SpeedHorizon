@@ -22,7 +22,7 @@ export default function RegisterPage() {
       const result = await response.json();
       if (response.ok && result.success) {
         setSuccess('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...');
-        setTimeout(() => router.push('/auth/login'), 1500);
+        setTimeout(() => router.push('/auth/login?registered=true'), 1500);
       } else {
         setError(result.message || 'Kayıt sırasında bir hata oluştu.');
       }
