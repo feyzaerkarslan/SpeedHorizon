@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -14,7 +14,7 @@ interface SearchResult {
   href: string;
 }
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q')
   const [results, setResults] = useState<SearchResult[]>([])
@@ -26,7 +26,7 @@ export default function SearchPage() {
       const fetchResults = async () => {
         try {
           setLoading(true)
-          const res = await fetch(`http://localhost:5001/api/search?q=${encodeURIComponent(query)}`)
+          const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
           if (!res.ok) {
             throw new Error('Arama sonuçları getirilemedi.')
           }
@@ -92,4 +92,12 @@ export default function SearchPage() {
       )}
     </div>
   )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <SearchPageContent />
+    </Suspense>
+  );
 } 
