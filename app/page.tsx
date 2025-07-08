@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import SearchBar from '@/components/SearchBar'
 import styles from './page.module.css'
+import Image from 'next/image'
 
 export default function Home() {
   const categories = [
@@ -34,19 +35,19 @@ export default function Home() {
     {
       name: 'MT-09',
       category: 'Hyper Naked',
-      image: '/mt09.jpg',
+      image: '/images/motorcycles/mt-09/1.jpg',
       href: '/motorcycles/mt-09',
     },
     {
       name: 'R1',
       category: 'Supersport',
-      image: '/r1.jpg',
+      image: '/images/motorcycles/r1/1.jpg',
       href: '/motorcycles/r1',
     },
     {
       name: 'Tracer 9 GT',
       category: 'Sport Touring',
-      image: '/tracer9.jpg',
+      image: '/images/motorcycles/tracer-9-gt/1.jpg',
       href: '/motorcycles/tracer-9-gt',
     },
   ]
@@ -88,9 +89,15 @@ export default function Home() {
               href={category.href}
               className="group block overflow-hidden"
             >
-              <div className={styles.categoryCard}>
+              <div className={styles.categoryCard + ' relative'}>
+                <Image
+                  src={category.image}
+                  alt={category.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
                 <div className={`${styles.categoryCardOverlay} group-hover:bg-black/50`} />
-                <div className={`${styles.categoryCardBg} group-hover:scale-105`} />
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                   <h3 className="text-xl font-bold text-white mb-2">
                     {category.title}
@@ -107,7 +114,6 @@ export default function Home() {
       <div className="bg-gray-100 py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">ÖNE ÇIKAN MODELLER</h2>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredModels.map((model) => (
               <Link
@@ -117,7 +123,14 @@ export default function Home() {
               >
                 <div className="bg-white overflow-hidden">
                   <div className={styles.modelCard}>
-                    <div className={`${styles.modelCardBg} group-hover:scale-110`} />
+                    <Image
+                      src={model.image}
+                      alt={model.name}
+                      width={400}
+                      height={250}
+                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
+                      priority
+                    />
                   </div>
                   <div className="p-6">
                     <span className="text-sm text-gray-500">{model.category}</span>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
 const availableTimeSlots = [
@@ -29,21 +29,110 @@ export default function Appointment() {
     notes: '',
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Ad Soyad alanı zorunludur';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'E-posta alanı zorunludur';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Geçerli bir e-posta adresi giriniz';
+    }
+    
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Telefon alanı zorunludur';
+    } else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\D/g, ''))) {
+      newErrors.phone = 'Geçerli bir telefon numarası giriniz (5XX XXX XX XX)';
+    }
+    
+    if (!formData.serviceType) {
+      newErrors.serviceType = 'Lütfen bir servis türü seçin';
+    }
+    
+    if (!formData.vehicleModel.trim()) {
+      newErrors.vehicleModel = 'Motosiklet modeli zorunludur';
+    }
+    
+    if (!formData.date) {
+      newErrors.date = 'Randevu tarihi zorunludur';
+    }
+    
+    if (!formData.time) {
+      newErrors.time = 'Randevu saati zorunludur';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 10) {
+      return numbers.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+    }
+    return value;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simüle edilmiş randevu oluşturma
-    toast.success('Randevunuz başarıyla oluşturuldu. Onay e-postası gönderildi.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      time: '',
-      serviceType: '',
-      vehicleModel: '',
-      notes: '',
-    });
+    if (!validateForm()) {
+      toast.error('Lütfen tüm zorunlu alanları doldurun');
+      return;
+    }
+
+    setLoading(true);
+
+    // Backend'e göndermek için veriyi hazırla
+    const appointmentData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone.replace(/\D/g, ''), // Sadece rakamları al
+      vehicleType: 'Motosiklet', // Varsayılan veya formdan alınabilir
+      vehicleModel: formData.vehicleModel,
+      serviceType: serviceTypes.find(s => s.id === formData.serviceType)?.name || '',
+      preferredDate: new Date(`${formData.date}T${formData.time}`),
+      notes: formData.notes
+    };
+
+    try {
+      const response = await fetch('http://localhost:5001/api/appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(appointmentData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success('Randevunuz başarıyla oluşturuldu!');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          date: '',
+          time: '',
+          serviceType: '',
+          vehicleModel: '',
+          notes: '',
+        });
+      } else {
+        throw new Error(result.message || 'Randevu oluşturulamadı.');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -66,6 +155,9 @@ export default function Appointment() {
               <p className="text-sm text-gray-500">Süre: {service.duration}</p>
             </div>
           ))}
+          {errors.serviceType && (
+            <p className="text-red-500 text-sm mt-1 col-span-full">{errors.serviceType}</p>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -79,8 +171,13 @@ export default function Appointment() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                  errors.name ? 'border-red-500' : 'border-gray-300'
+                }`}
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              )}
             </div>
 
             <div>
@@ -92,8 +189,13 @@ export default function Appointment() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                  errors.email ? 'border-red-500' : 'border-gray-300'
+                }`}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
 
             <div>
@@ -104,9 +206,15 @@ export default function Appointment() {
                 type="tel"
                 required
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                onChange={(e) => setFormData({ ...formData, phone: formatPhoneNumber(e.target.value) })}
+                placeholder="(5XX) XXX-XXXX"
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                  errors.phone ? 'border-red-500' : 'border-gray-300'
+                }`}
               />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+              )}
             </div>
 
             <div>
@@ -118,69 +226,85 @@ export default function Appointment() {
                 required
                 value={formData.vehicleModel}
                 onChange={(e) => setFormData({ ...formData, vehicleModel: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                  errors.vehicleModel ? 'border-red-500' : 'border-gray-300'
+                }`}
               />
+              {errors.vehicleModel && (
+                <p className="text-red-500 text-sm mt-1">{errors.vehicleModel}</p>
+              )}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Randevu Tarihi
-              </label>
-              <div className="relative">
-                <input
-                  type="date"
-                  required
-                  min={new Date().toISOString().split('T')[0]}
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-                />
-                <CalendarIcon className="w-5 h-5 text-gray-400 absolute right-3 top-2.5" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Randevu Tarihi
+                </label>
+                <div className="relative">
+                  <input
+                    type="date"
+                    required
+                    value={formData.date}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    min={new Date().toISOString().split('T')[0]} // Geçmiş tarihleri engelle
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                      errors.date ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                  />
+                  <CalendarIcon className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" />
+                </div>
+                {errors.date && (
+                  <p className="text-red-500 text-sm mt-1">{errors.date}</p>
+                )}
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Randevu Saati
-              </label>
-              <div className="relative">
-                <select
-                  required
-                  value={formData.time}
-                  onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 appearance-none"
-                >
-                  <option value="">Saat seçin</option>
-                  {availableTimeSlots.map((time) => (
-                    <option key={time} value={time}>
-                      {time}
-                    </option>
-                  ))}
-                </select>
-                <ClockIcon className="w-5 h-5 text-gray-400 absolute right-3 top-2.5" />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Randevu Saati
+                </label>
+                <div className="relative">
+                  <select
+                    required
+                    value={formData.time}
+                    onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 appearance-none focus:ring-blue-500 ${
+                      errors.time ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                  >
+                    <option value="">Saat seçiniz</option>
+                    {availableTimeSlots.map(slot => (
+                      <option key={slot} value={slot}>{slot}</option>
+                    ))}
+                  </select>
+                  <ClockIcon className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" />
+                </div>
+                {errors.time && (
+                  <p className="text-red-500 text-sm mt-1">{errors.time}</p>
+                )}
               </div>
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Notlar / Açıklamalar
+              Ek Notlar (isteğe bağlı)
             </label>
             <textarea
-              rows={4}
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-              placeholder="Varsa eklemek istediğiniz notları yazabilirsiniz..."
-            />
+              rows={3}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 border-gray-300"
+              placeholder="Aracınızdaki sorun veya özel talepleriniz hakkında bilgi verebilirsiniz."
+            ></textarea>
           </div>
 
-          <div className="flex justify-end">
+          <div className="pt-4">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:bg-blue-300"
             >
-              Randevu Oluştur
+              {loading ? 'Randevu Oluşturuluyor...' : 'Randevuyu Onayla'}
             </button>
           </div>
         </form>

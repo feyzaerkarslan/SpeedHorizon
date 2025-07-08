@@ -2,11 +2,15 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useAuth } from '@/src/contexts/AuthContext';
+import { useCart } from '@/src/contexts/CartContext';
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const { user, loading } = useAuth();
+  const { cartCount } = useCart();
 
   const menuItems = [
     { 
@@ -32,38 +36,32 @@ export default function Navbar() {
     { 
       name: 'Yedek Parçalar', 
       href: '/spare-parts',
-      subCategories: [
-        { name: 'Motor Parçaları', href: '/spare-parts/motor' },
-        { name: 'Scooter Parçaları', href: '/spare-parts/scooter' },
-      ]
+      subCategories: []
     },
     { 
       name: 'Aksesuarlar', 
       href: '/accessories',
-      subCategories: [
-        { name: 'Kask', href: '/accessories/helmet' },
-        { name: 'Giyim', href: '/accessories/apparel' },
-        { name: 'Sürüş Ekipmanları', href: '/accessories/riding-gear' },
-      ]
+      subCategories: []
     },
     { 
       name: 'Bayi & Servis', 
       href: '/dealers',
       subCategories: []
     },
+    { name: 'İndirimli Ürünler', href: '/discounted-products', subCategories: [] },
   ];
 
   return (
-    <nav className="bg-black text-white sticky top-0 z-50">
+    <nav className="bg-black text-white sticky top-0 z-50 shadow-md">
       {/* Top Bar */}
       <div className="bg-gray-800 py-1">
-        <div className="max-w-7xl mx-auto px-4 flex justify-end space-x-6 text-sm">
-          <Link href="/randevu" className="text-gray-300 hover:text-white">Randevu Al</Link>
-          <Link href="/feedback" className="text-gray-300 hover:text-white">Şikayet/Öneri</Link>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-center space-x-6 text-sm h-8">
+          <Link href="/appointment" className="text-gray-300 hover:text-white transition-colors">Randevu Al</Link>
+          <Link href="/feedback" className="text-gray-300 hover:text-white transition-colors">Şikayet/Öneri</Link>
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center">
@@ -75,7 +73,7 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center">
-            <div className="flex space-x-1">
+            <div className="ml-10 flex items-baseline space-x-1">
               {menuItems.map((item) => (
                 <div 
                   key={item.name}
@@ -85,13 +83,13 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    className="px-3 py-5 text-sm font-medium border-b-2 border-transparent hover:border-blue-500 transition-all"
+                    className="px-3 py-5 text-sm font-medium border-b-2 border-transparent hover:border-blue-500 transition-all duration-300"
                   >
                     {item.name}
                   </Link>
                   
                   {item.subCategories.length > 0 && hoveredCategory === item.name && (
-                    <div className="absolute z-10 left-0 w-60 bg-white text-black mt-0 shadow-lg rounded-b-md overflow-hidden">
+                    <div className="absolute z-20 left-0 w-60 bg-white text-black mt-0 shadow-lg rounded-b-md overflow-hidden animate-fade-in-down">
                       {item.subCategories.map((subCat) => (
                         <Link
                           key={subCat.name}
@@ -109,31 +107,57 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/cart" className="text-white hover:text-blue-500">
-              <ShoppingCartIcon className="h-6 w-6" />
-            </Link>
-            <Link href="/profile" className="text-white hover:text-blue-500">
-              <UserIcon className="h-6 w-6" />
-            </Link>
-            <Link
-              href="/login"
-              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
-            >
-              Giriş Yap
-            </Link>
+            {!loading && (
+              <>
+                {user ? (
+                  <>
+                    <Link href="/cart" className="relative text-white hover:text-blue-500 transition-colors">
+                      <ShoppingCartIcon className="h-6 w-6" />
+                      {cartCount > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                          {cartCount}
+                        </span>
+                      )}
+                    </Link>
+                    <Link href="/profile" className="text-white hover:text-blue-500 transition-colors">
+                      <UserIcon className="h-6 w-6" />
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/register"
+                      className="bg-gray-700 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-600 transition-colors"
+                    >
+                      Üye Ol
+                    </Link>
+                    <Link
+                      href="/auth/login"
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                    >
+                      Giriş Yap
+                    </Link>
+                  </>
+                )}
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
+            <Link href="/cart" className="relative text-white hover:text-blue-500 transition-colors mr-2">
+                <ShoppingCartIcon className="h-6 w-6" />
+                 {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        {cartCount}
+                    </span>
+                 )}
+            </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700"
             >
-              {isOpen ? (
-                <XMarkIcon className="block h-6 w-6" />
-              ) : (
-                <Bars3Icon className="block h-6 w-6" />
-              )}
+              {isOpen ? <XMarkIcon className="block h-6 w-6" /> : <Bars3Icon className="block h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -141,50 +165,50 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-900">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden bg-gray-900 absolute w-full">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {menuItems.map((item) => (
-              <div key={item.name}>
-                <Link
+               <Link
+                  key={item.name}
                   href={item.href}
                   className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
-                
-                {item.subCategories.length > 0 && (
-                  <div className="pl-6 space-y-1 mt-1">
-                    {item.subCategories.map((subCat) => (
-                      <Link
-                        key={subCat.name}
-                        href={subCat.href}
-                        className="block px-3 py-1 rounded-md text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {subCat.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
             ))}
             
-            <div className="pt-4 flex space-x-3">
-              <Link
-                href="/cart"
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                onClick={() => setIsOpen(false)}
-              >
-                Sepetim
-              </Link>
-              <Link
-                href="/login"
-                className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
-                onClick={() => setIsOpen(false)}
-              >
-                Giriş Yap
-              </Link>
+            <div className="pt-4 pb-3 border-t border-gray-700">
+               {!loading && (
+                <>
+                  {user ? (
+                     <Link
+                        href="/profile"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Profilim
+                      </Link>
+                  ) : (
+                    <div className="flex flex-col space-y-2">
+                       <Link
+                        href="/register"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Üye Ol
+                      </Link>
+                      <Link
+                        href="/auth/login"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Giriş Yap
+                      </Link>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

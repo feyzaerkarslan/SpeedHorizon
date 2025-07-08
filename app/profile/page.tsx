@@ -1,161 +1,241 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { UserIcon, HeartIcon, ShoppingBagIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '@/src/contexts/AuthContext';
+import { UserIcon, HeartIcon, ShoppingBagIcon, ArrowRightOnRectangleIcon, BellIcon } from '@heroicons/react/24/outline';
+import toast from 'react-hot-toast';
 
-// Örnek kullanıcı verileri
-const userData = {
-  name: 'John Doe',
-  email: 'john@example.com',
-  orders: [
-    { id: 1, date: '2025-04-24', status: 'Teslim Edildi', total: 249999 },
-    { id: 2, date: '2025-04-23', status: 'Kargoda', total: 399999 },
-  ],
-  favorites: [
-    { id: 1, name: 'SpeedMaster 650', price: 249999, image: '/motorcycle-1.jpg' },
-    { id: 2, name: 'RoadKing 1000', price: 399999, image: '/motorcycle-2.jpg' },
-  ],
-};
+// Kullanıcı verileri için bir tip tanımı
+interface UserProfile {
+  _id: string;
+  name: string;
+  email: string;
+}
 
-export default function Profile() {
+export default function ProfilePage() {
   const router = useRouter();
+  const { user, loading, logout, getFavorites, removeFromFavorites } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
+  const [favorites, setFavorites] = useState([]);
+  const [loadingFavorites, setLoadingFavorites] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      toast.error('Bu sayfayı görüntülemek için giriş yapmalısınız.');
+      router.push('/auth/login');
+    }
+  }, [user, loading, router]);
+
+  useEffect(() => {
+    if (user && activeTab === 'favorites') {
+      loadFavorites();
+    }
+  }, [user, activeTab]);
+
+  useEffect(() => {
+    if (user && activeTab === 'orders') {
+      loadOrders();
+    }
+  }, [user, activeTab]);
+
+  const loadFavorites = async () => {
+    try {
+      setLoadingFavorites(true);
+      const userFavorites = await getFavorites();
+      setFavorites(userFavorites);
+    } catch (error) {
+      console.error('Favoriler yüklenirken hata:', error);
+      toast.error('Favoriler yüklenirken bir hata oluştu.');
+    } finally {
+      setLoadingFavorites(false);
+    }
+  };
+
+  const loadOrders = async () => {
+    try {
+      setLoadingOrders(true);
+      const res = await fetch(`http://localhost:5001/api/orders?userId=${user._id}`);
+      const data = await res.json();
+      if (data.success) setOrders(data.data);
+      else setOrders([]);
+    } catch (error) {
+      setOrders([]);
+      toast.error('Siparişler yüklenirken bir hata oluştu.');
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
+
+  const handleRemoveFavorite = async (productId: string, productModel: string) => {
+    try {
+      await removeFromFavorites(productId, productModel);
+      setFavorites(prev => prev.filter(fav => fav._id !== productId));
+      toast.success('Favorilerden çıkarıldı.');
+    } catch (error: any) {
+      toast.error(error.message || 'Favorilerden çıkarılırken bir hata oluştu.');
+    }
+  };
 
   const handleLogout = () => {
-    // Çıkış işlemi simülasyonu
+    logout();
+    toast.success('Başarıyla çıkış yapıldı.');
     router.push('/');
   };
 
+  if (loading || !user) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <div className="text-xl font-semibold">Yükleniyor...</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {/* Sidebar */}
-        <div className="md:col-span-1">
-          <div className="bg-white rounded-lg shadow p-6 space-y-4">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <UserIcon className="w-6 h-6 text-blue-600" />
+    <div className="bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
+          <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
+            <nav className="space-y-1">
+              <div className="flex items-center space-x-4 p-4 mb-4">
+                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                    <UserIcon className="w-8 h-8 text-blue-600" />
+                 </div>
+                 <div>
+                    <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
+                    <p className="text-sm text-gray-500">{user.email}</p>
+                 </div>
               </div>
-              <div>
-                <h2 className="text-lg font-semibold">{userData.name}</h2>
-                <p className="text-sm text-gray-500">{userData.email}</p>
-              </div>
-            </div>
 
-            <button
-              onClick={() => setActiveTab('profile')}
-              className={`w-full text-left px-4 py-2 rounded-md flex items-center space-x-2 ${
-                activeTab === 'profile' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-              }`}
-            >
-              <UserIcon className="w-5 h-5" />
-              <span>Profilim</span>
-            </button>
+              <a
+                onClick={() => setActiveTab('profile')}
+                className={`cursor-pointer group rounded-md px-3 py-2 flex items-center text-sm font-medium ${activeTab === 'profile' ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-100'}`}
+              >
+                <UserIcon className="text-gray-500 group-hover:text-gray-600 mr-3 h-6 w-6" />
+                <span>Profil Bilgileri</span>
+              </a>
+              <a
+                onClick={() => setActiveTab('orders')}
+                className={`cursor-pointer group rounded-md px-3 py-2 flex items-center text-sm font-medium ${activeTab === 'orders' ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-100'}`}
+              >
+                <ShoppingBagIcon className="text-gray-500 group-hover:text-gray-600 mr-3 h-6 w-6" />
+                <span>Siparişlerim</span>
+              </a>
+              <a
+                onClick={() => setActiveTab('favorites')}
+                className={`cursor-pointer group rounded-md px-3 py-2 flex items-center text-sm font-medium ${activeTab === 'favorites' ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-100'}`}
+              >
+                <HeartIcon className="text-gray-500 group-hover:text-gray-600 mr-3 h-6 w-6" />
+                <span>Favorilerim</span>
+              </a>
+              <a
+                onClick={() => handleLogout()}
+                className="cursor-pointer group rounded-md px-3 py-2 flex items-center text-sm font-medium text-red-600 hover:bg-red-50"
+              >
+                <ArrowRightOnRectangleIcon className="mr-3 h-6 w-6" />
+                <span>Çıkış Yap</span>
+              </a>
+            </nav>
+          </aside>
 
-            <button
-              onClick={() => setActiveTab('orders')}
-              className={`w-full text-left px-4 py-2 rounded-md flex items-center space-x-2 ${
-                activeTab === 'orders' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-              }`}
-            >
-              <ShoppingBagIcon className="w-5 h-5" />
-              <span>Siparişlerim</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('favorites')}
-              className={`w-full text-left px-4 py-2 rounded-md flex items-center space-x-2 ${
-                activeTab === 'favorites' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-              }`}
-            >
-              <HeartIcon className="w-5 h-5" />
-              <span>Favorilerim</span>
-            </button>
-
-            <button
-              onClick={handleLogout}
-              className="w-full text-left px-4 py-2 rounded-md flex items-center space-x-2 text-red-600 hover:bg-red-50"
-            >
-              <ArrowRightOnRectangleIcon className="w-5 h-5" />
-              <span>Çıkış Yap</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="md:col-span-3">
-          <div className="bg-white rounded-lg shadow p-6">
-            {activeTab === 'profile' && (
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Profil Bilgileri</h2>
-                <form className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Ad Soyad</label>
-                    <input
-                      type="text"
-                      defaultValue={userData.name}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">E-posta</label>
-                    <input
-                      type="email"
-                      defaultValue={userData.email}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                  >
-                    Değişiklikleri Kaydet
-                  </button>
-                </form>
+          <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+             {activeTab === 'profile' && (
+              <div className="bg-white shadow rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">Profil Bilgileri</h3>
+                  <p className="mt-1 max-w-2xl text-sm text-gray-500">Kişisel bilgilerinizi buradan güncelleyebilirsiniz.</p>
+                </div>
+                <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
+                   <form className="space-y-6">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700">Ad Soyad</label>
+                      <input type="text" id="name" defaultValue={user.name} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                    </div>
+                     <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">E-posta</label>
+                      <input type="email" id="email" value={user.email} disabled className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 text-gray-500 sm:text-sm" />
+                    </div>
+                    <div className="flex justify-end">
+                       <button
+                        type="submit"
+                        className="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700"
+                        onClick={(e) => {e.preventDefault(); toast('Bu özellik henüz aktif değil.')}}
+                      >
+                        Değişiklikleri Kaydet
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             )}
 
             {activeTab === 'orders' && (
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Siparişlerim</h2>
-                <div className="space-y-4">
-                  {userData.orders.map((order) => (
-                    <div key={order.id} className="border rounded-lg p-4">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="font-medium">Sipariş #{order.id}</p>
-                          <p className="text-sm text-gray-500">{order.date}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-medium">{order.total.toLocaleString('tr-TR')} TL</p>
-                          <p className="text-sm text-green-600">{order.status}</p>
-                        </div>
+              <div className="bg-white shadow rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">Siparişlerim</h3>
+                  <div className="mt-8 text-center text-gray-500 py-8">
+                    {loadingOrders ? (
+                      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mx-auto"></div>
+                    ) : orders.length > 0 ? (
+                      <div className="space-y-4">
+                        {orders.map((order: any) => (
+                          <div key={order._id} className="border rounded-lg p-4 text-left">
+                            <div className="font-semibold mb-2">Sipariş No: {order._id}</div>
+                            <div className="text-sm text-gray-600 mb-1">Tarih: {new Date(order.createdAt).toLocaleString('tr-TR')}</div>
+                            <div className="text-sm text-gray-600 mb-1">Toplam Tutar: {order.totalAmount?.toLocaleString('tr-TR')} TL</div>
+                            <div className="text-sm text-gray-600 mb-1">Durum: {order.status}</div>
+                            <div className="mt-2">
+                              <span className="font-semibold">Ürünler:</span>
+                              <ul className="list-disc ml-6">
+                                {order.items.map((item: any, idx: number) => (
+                                  <li key={idx}>{item.name} x {item.quantity} ({item.price?.toLocaleString('tr-TR')} TL)</li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    </div>
-                  ))}
+                    ) : (
+                      <>
+                        <ShoppingBagIcon className="w-12 h-12 mx-auto text-gray-400"/>
+                        <p className="mt-4">Henüz siparişiniz bulunmamaktadır.</p>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
 
             {activeTab === 'favorites' && (
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Favorilerim</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {userData.favorites.map((item) => (
-                    <div key={item.id} className="border rounded-lg p-4 flex space-x-4">
-                      <div className="w-24 h-24 bg-gray-100 rounded"></div>
-                      <div>
-                        <h3 className="font-medium">{item.name}</h3>
-                        <p className="text-blue-600 font-medium">
-                          {item.price.toLocaleString('tr-TR')} TL
-                        </p>
-                        <button className="mt-2 text-sm text-red-600 hover:text-red-700">
-                          Favorilerden Çıkar
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+              <div className="bg-white shadow rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">Favorilerim</h3>
+                  <div className="mt-8 text-center text-gray-500 py-8">
+                    {loadingFavorites ? (
+                      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mx-auto"></div>
+                    ) : (
+                      favorites.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {favorites.map((product) => (
+                            <div key={product._id} className="flex flex-col items-center">
+                              <img src={product.image} alt={product.name} className="w-32 h-32 object-cover rounded-lg mb-2" />
+                              <h4 className="text-lg font-semibold">{product.name}</h4>
+                              <button
+                                onClick={() => handleRemoveFavorite(product._id, product.model)}
+                                className="mt-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                              >
+                                Favorilerden Çıkar
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p>Henüz favori ürününüz bulunmamaktadır.</p>
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             )}

@@ -9,7 +9,10 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   // Client componentlere sahip dinamik rotalar için SSR kullanıyoruz
-  images: { unoptimized: true },
+  images: {
+    domains: ['localhost'],
+    unoptimized: true,
+  },
   trailingSlash: true,
 };
 

@@ -1,12 +1,83 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { AdjustmentsHorizontalIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, ChevronDownIcon, HeartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
+import { useAuth } from '@/src/contexts/AuthContext';
+import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 export default function MotorcyclesPage() {
+  const [motorcycles, setMotorcycles] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Tümü');
   const [showFilters, setShowFilters] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [loadingFavorites, setLoadingFavorites] = useState(false);
+  const { user, addToFavorites, removeFromFavorites, getFavorites } = useAuth();
+  
+  // Filtreleme state'leri
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState([0, 1000000]);
+  const [engineSize, setEngineSize] = useState('');
+  const [powerRange, setPowerRange] = useState([0, 200]);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+
+  useEffect(() => {
+    fetch('http://localhost:5001/api/motorcycles')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) setMotorcycles(data.data);
+      })
+      .catch(err => {
+        console.error('API isteği başarısız:', err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      loadFavorites();
+    }
+  }, [user]);
+
+  const loadFavorites = async () => {
+    try {
+      setLoadingFavorites(true);
+      const userFavorites = await getFavorites();
+      const favoriteIds = userFavorites.map(fav => fav._id);
+      setFavorites(favoriteIds);
+    } catch (error) {
+      console.error('Favoriler yüklenirken hata:', error);
+    } finally {
+      setLoadingFavorites(false);
+    }
+  };
+
+  const handleFavoriteToggle = async (motorcycleId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!user) {
+      toast.error('Favorilere eklemek için giriş yapmalısınız.');
+      return;
+    }
+
+    try {
+      const isFavorite = favorites.includes(motorcycleId);
+      
+      if (isFavorite) {
+        await removeFromFavorites(motorcycleId, 'Motorcycle');
+        setFavorites(prev => prev.filter(id => id !== motorcycleId));
+        toast.success('Favorilerden çıkarıldı.');
+      } else {
+        await addToFavorites(motorcycleId, 'Motorcycle');
+        setFavorites(prev => [...prev, motorcycleId]);
+        toast.success('Favorilere eklendi.');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Bir hata oluştu.');
+    }
+  };
 
   const categories = [
     'Tümü',
@@ -18,67 +89,36 @@ export default function MotorcyclesPage() {
     'Supersport'
   ];
 
-  const motorcycles = [
-    {
-      id: 'mt-09',
-      name: 'MT-09',
-      category: 'Hyper Naked',
-      price: 485000,
-      image: '/motorcycles/mt-09/1.jpg',
-      new: true,
-      popular: true
-    },
-    {
-      id: 'r1',
-      name: 'R1',
-      category: 'Supersport',
-      price: 850000,
-      image: '/motorcycles/r1/1.jpg',
-      new: false,
-      popular: true
-    },
-    {
-      id: 'tracer-9-gt',
-      name: 'Tracer 9 GT',
-      category: 'Sport Touring',
-      price: 545000,
-      image: '/motorcycles/tracer-9-gt/1.jpg',
-      new: true,
-      popular: false
-    },
-    {
-      id: 'tenere-700',
-      name: 'Tenere 700',
-      category: 'Adventure',
-      price: 495000,
-      image: '/motorcycles/tenere-700/1.jpg',
-      new: false,
-      popular: true
-    },
-    {
-      id: 'xsr900',
-      name: 'XSR900',
-      category: 'Sport Heritage',
-      price: 515000,
-      image: '/motorcycles/xsr900/1.jpg',
-      new: false,
-      popular: false
-    },
-    {
-      id: 'yz450f',
-      name: 'YZ450F',
-      category: 'Off Road',
-      price: 385000,
-      image: '/motorcycles/yz450f/1.jpg',
-      new: true,
-      popular: false
-    }
-  ];
+  // Gelişmiş filtreleme fonksiyonu
+  const filteredMotorcycles = motorcycles.filter(moto => {
+    // Kategori filtresi
+    const matchesCategory = activeCategory === 'Tümü' || moto.category === activeCategory;
+    
+    // Arama filtresi
+    const matchesSearch = searchQuery === '' || 
+      moto.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      moto.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Fiyat filtresi
+    const matchesPrice = moto.price >= priceRange[0] && moto.price <= priceRange[1];
+    
+    // Motor hacmi filtresi
+    const matchesEngineSize = engineSize === '' || 
+      moto.engineSize?.toString().includes(engineSize);
+    
+    // Güç filtresi
+    const matchesPower = moto.power >= powerRange[0] && moto.power <= powerRange[1];
+    
+    return matchesCategory && matchesSearch && matchesPrice && matchesEngineSize && matchesPower;
+  });
 
-  const filteredMotorcycles = 
-    activeCategory === 'Tümü' 
-      ? motorcycles 
-      : motorcycles.filter(moto => moto.category === activeCategory);
+  // Filtreleri sıfırla
+  const resetFilters = () => {
+    setSearchQuery('');
+    setPriceRange([0, 1000000]);
+    setEngineSize('');
+    setPowerRange([0, 200]);
+  };
 
   return (
     <div className="bg-white">
@@ -89,7 +129,7 @@ export default function MotorcyclesPage() {
         <div className="container mx-auto px-4 relative z-20">
           <h1 className="text-5xl font-bold mb-4">Motor Modelleri</h1>
           <p className="text-lg mb-8">
-            SpeedHorizon motosikletleri, tutkunun ve mühendisliğin mükemmel birleşimidir. Her model, sürücüsüne benzersiz bir deneyim sunmak için tasarlanmıştır. Seçkin tasarım, güçlü performans ve üstün kalite standartlarıyla üretilen motosikletlerimiz, her sürüşü bir maceraya dönüştürür.
+            SpeedHorizon motosikletleri, tutkunun ve mühendisliğin mükemmel birleşimidir. Her model, sürücüsüne benzersiz bir deneyim sunmak için tasarlanmıştır.
           </p>
         </div>
       </div>
@@ -143,7 +183,10 @@ export default function MotorcyclesPage() {
             </div>
 
             {/* Filters button */}
-            <button className="text-gray-500 hover:text-gray-700 flex items-center">
+            <button 
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              className="text-gray-500 hover:text-gray-700 flex items-center"
+            >
               <AdjustmentsHorizontalIcon className="h-5 w-5 mr-1" />
               <span className="text-sm font-medium">Filtreler</span>
             </button>
@@ -151,18 +194,134 @@ export default function MotorcyclesPage() {
         </div>
       </div>
 
+      {/* Advanced Filters */}
+      {showAdvancedFilters && (
+        <div className="bg-gray-50 border-b border-gray-200">
+          <div className="container mx-auto px-4 py-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Arama */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Arama</label>
+                <div className="relative">
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Model adı ara..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              {/* Fiyat Aralığı */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Fiyat: {priceRange[0].toLocaleString('tr-TR')} - {priceRange[1].toLocaleString('tr-TR')} TL
+                </label>
+                <div className="flex space-x-2">
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    value={priceRange[0]}
+                    onChange={(e) => setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])}
+                    className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    value={priceRange[1]}
+                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value) || 1000000])}
+                    className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              {/* Motor Hacmi */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Motor Hacmi</label>
+                <input
+                  type="text"
+                  placeholder="cc (örn: 600)"
+                  value={engineSize}
+                  onChange={(e) => setEngineSize(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Güç Aralığı */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Güç: {powerRange[0]} - {powerRange[1]} HP
+                </label>
+                <div className="flex space-x-2">
+                  <input
+                    type="number"
+                    placeholder="Min HP"
+                    value={powerRange[0]}
+                    onChange={(e) => setPowerRange([parseInt(e.target.value) || 0, powerRange[1]])}
+                    className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Max HP"
+                    value={powerRange[1]}
+                    onChange={(e) => setPowerRange([powerRange[0], parseInt(e.target.value) || 200])}
+                    className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Filtreleri Sıfırla */}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={resetFilters}
+                className="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Filtreleri Sıfırla
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Motorcycles grid */}
       <div className="container mx-auto px-4 py-12">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">
+            {filteredMotorcycles.length} motosiklet bulundu
+          </h2>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredMotorcycles.map((motorcycle) => (
             <Link 
-              key={motorcycle.id} 
-              href={`/motorcycles/${motorcycle.id}`}
+              key={motorcycle._id || motorcycle.id} 
+              href={`/motorcycles/${motorcycle._id || motorcycle.id}`}
               className="group"
             >
               <div className="bg-gray-100 overflow-hidden aspect-w-16 aspect-h-9 rounded-lg relative">
                 {/* Burada gerçek bir resim olmalı */}
-                <div className="w-full h-56 bg-gray-200 group-hover:scale-105 transition-transform duration-300"></div>
+                <Image
+                  src={motorcycle.images?.[0] || '/placeholder.png'}
+                  alt={motorcycle.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                
+                {/* Favori butonu */}
+                <button
+                  onClick={(e) => handleFavoriteToggle(motorcycle._id || motorcycle.id, e)}
+                  className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors z-10"
+                  disabled={loadingFavorites}
+                >
+                  {favorites.includes(motorcycle._id || motorcycle.id) ? (
+                    <HeartIconSolid className="w-5 h-5 text-red-500" />
+                  ) : (
+                    <HeartIcon className="w-5 h-5 text-gray-600 hover:text-red-500" />
+                  )}
+                </button>
                 
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex space-x-2">
@@ -184,8 +343,27 @@ export default function MotorcyclesPage() {
                   </span>
                 </div>
                 <p className="mt-2 font-medium text-lg">
-                  {motorcycle.price.toLocaleString('tr-TR')} TL
+                  {motorcycle.price?.toLocaleString('tr-TR')} TL
                 </p>
+                {/* Motor bilgileri */}
+                <div className="mt-2 flex space-x-4 text-sm text-gray-600">
+                  {motorcycle.engineSize && (
+                    <span>{motorcycle.engineSize}cc</span>
+                  )}
+                  {motorcycle.power && (
+                    <span>{motorcycle.power} HP</span>
+                  )}
+                </div>
+                {/* Stok bilgisi */}
+                <div className="mt-2">
+                  <span className={`text-sm px-2 py-1 rounded ${
+                    motorcycle.stock > 0 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-red-100 text-red-800'
+                  }`}>
+                    {motorcycle.stock > 0 ? `Stok: ${motorcycle.stock} adet` : 'Stokta yok'}
+                  </span>
+                </div>
                 <div className="mt-3 text-blue-600 text-sm font-medium group-hover:underline">
                   Detayları Görüntüle
                 </div>
@@ -193,6 +371,19 @@ export default function MotorcyclesPage() {
             </Link>
           ))}
         </div>
+        
+        {filteredMotorcycles.length === 0 && (
+          <div className="text-center py-16">
+            <h3 className="text-xl font-semibold text-gray-700">Arama kriterlerinize uygun motosiklet bulunamadı.</h3>
+            <p className="text-gray-500 mt-2">Farklı filtreler deneyebilir veya filtreleri sıfırlayabilirsiniz.</p>
+            <button
+              onClick={resetFilters}
+              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Filtreleri Sıfırla
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Call to action */}
