@@ -46,12 +46,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(true);
     try {
       // Önce kullanıcının ham sepet verisini (productId ve productModel ile) alalım
-      const userResponse = await fetch(`http://localhost:5001/api/users/${user._id}`);
+      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}`);
       const userData = await userResponse.json();
       if (!userData.success) throw new Error("Kullanıcı verisi alınamadı");
       setOriginalUserCart(userData.data.cart);
       
-      const populatedCartResponse = await fetch(`http://localhost:5001/api/users/${user._id}/cart`);
+      const populatedCartResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/cart`);
       const result = await populatedCartResponse.json();
 
       if (populatedCartResponse.ok) {
@@ -87,7 +87,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5001/api/users/${user._id}/cart`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId, productModel: productType, quantity }),
@@ -107,7 +107,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const removeFromCart = async (productId: string) => {
     if (!user) return;
     try {
-      const response = await fetch(`http://localhost:5001/api/users/${user._id}/cart/${productId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/cart/${productId}`, {
         method: 'DELETE',
       });
       const result = await response.json();
@@ -128,7 +128,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5001/api/users/${user._id}/cart/${productId}/quantity`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/cart/${productId}/quantity`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity }),
@@ -151,7 +151,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5001/api/users/${user._id}/cart/clear`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/cart/clear`, {
         method: 'DELETE',
       });
       const result = await response.json();

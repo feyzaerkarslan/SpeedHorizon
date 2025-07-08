@@ -33,7 +33,7 @@ export default function Accessories() {
   useEffect(() => {
     const fetchAccessories = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/accessories');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/accessories`);
         const result = await response.json();
         if (result.success) {
           setAccessories(result.data);

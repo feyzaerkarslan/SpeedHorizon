@@ -32,7 +32,7 @@ export default function ScooterDetail({ params: paramsPromise }: { params: Promi
   useEffect(() => {
     const fetchScooter = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/scooters/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scooters/${params.id}`);
         const result = await response.json();
         if (result.success) {
           setScooter(result.data);

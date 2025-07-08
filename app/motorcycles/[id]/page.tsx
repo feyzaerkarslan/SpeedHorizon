@@ -20,7 +20,7 @@ interface Motorcycle {
 
 async function getMotorcycle(id: string): Promise<Motorcycle | null> {
   try {
-    const response = await fetch(`http://localhost:5001/api/motorcycles/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/motorcycles/${id}`, {
       next: { revalidate: 3600 },
     });
 

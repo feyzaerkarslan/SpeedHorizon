@@ -24,7 +24,7 @@ export default function MotorcyclesPage() {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/motorcycles')
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/motorcycles`)
       .then(res => res.json())
       .then(data => {
         if (data.success) setMotorcycles(data.data);

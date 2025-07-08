@@ -107,7 +107,7 @@ const PaymentPage = () => {
 
     try {
       if (paymentType === 'cart') {
-        const cardRes = await fetch('http://localhost:5001/api/creditcards', {
+          const cardRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/creditcards`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -32,7 +32,7 @@ export default function SpareParts() {
   useEffect(() => {
     const fetchSpareParts = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/spareparts');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/spareparts`);
         const result = await response.json();
         if (result.success) {
           setSpareParts(result.data);

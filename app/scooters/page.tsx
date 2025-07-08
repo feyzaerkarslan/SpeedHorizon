@@ -33,7 +33,7 @@ export default function Scooters() {
   useEffect(() => {
     const fetchScooters = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/scooters');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scooters`);
         const result = await response.json();
         if (result.success) {
           setScooters(result.data);

@@ -24,7 +24,7 @@ export default function DiscountedProductsPage() {
     const fetchProducts = async () => {
       try {
         setLoading(true)
-        const res = await fetch('http://localhost:5001/api/discounted-products')
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/discounted-products`)
         if (!res.ok) throw new Error('İndirimli ürünler getirilemedi.')
         const data = await res.json()
         let products = data

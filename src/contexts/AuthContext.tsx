@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error('Lütfen önce giriş yapın.');
     }
     
-    const response = await fetch(`http://localhost:5001/api/users/${user._id}/favorites`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/favorites`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productId, productModel }),
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error('Lütfen önce giriş yapın.');
     }
     
-    const response = await fetch(`http://localhost:5001/api/users/${user._id}/favorites/${productId}?productModel=${productModel}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/favorites`, { 
       method: 'DELETE',
     });
     
@@ -105,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return [];
     }
     
-    const response = await fetch(`http://localhost:5001/api/users/${user._id}/favorites`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/favorites`);
     const result = await response.json();
     
     if (response.ok) {

@@ -57,7 +57,7 @@ export default function ProfilePage() {
   const loadOrders = async () => {
     try {
       setLoadingOrders(true);
-      const res = await fetch(`http://localhost:5001/api/orders?userId=${user._id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders?userId=${user._id}`);
       const data = await res.json();
       if (data.success) setOrders(data.data);
       else setOrders([]);
