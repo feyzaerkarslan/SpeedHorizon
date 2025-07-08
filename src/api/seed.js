@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Motorcycle = require('./Motorcycle');
 const Scooter = require('./Scooter');
@@ -527,7 +528,7 @@ const accessories = [
   }
 ];
 
-mongoose.connect('mongodb://localhost:27017/speedhorizon')
+mongoose.connect(process.env.MONGODB_URI)
   .then(async () => {
     await Promise.all([
       Motorcycle.deleteMany({}),
