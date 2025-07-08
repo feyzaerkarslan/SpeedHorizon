@@ -126,7 +126,7 @@ export default function Navbar() {
                 ) : (
                   <>
                     <Link
-                      href="/register"
+                      href="/auth/register"
                       className="bg-gray-700 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-600 transition-colors"
                     >
                       Üye Ol
@@ -192,7 +192,7 @@ export default function Navbar() {
                   ) : (
                     <div className="flex flex-col space-y-2">
                        <Link
-                        href="/register"
+                        href="/auth/register"
                         className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
                         onClick={() => setIsOpen(false)}
                       >
