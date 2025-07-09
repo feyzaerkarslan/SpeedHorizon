@@ -466,6 +466,18 @@ app.post('/api/orders', async (req, res) => {
   try {
     const order = new Order(req.body);
     await order.save();
+
+    // Stok azaltma işlemi
+    if (order.items && Array.isArray(order.items)) {
+      for (const item of order.items) {
+        const { productId, productModel, quantity } = item;
+        if (productId && productModel && quantity) {
+          const Model = mongoose.model(productModel);
+          await Model.findByIdAndUpdate(productId, { $inc: { stock: -quantity } });
+        }
+      }
+    }
+
     res.json({ success: true, data: order });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Sipariş eklenemedi.', error: err.message });
