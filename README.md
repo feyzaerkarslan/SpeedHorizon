@@ -54,6 +54,6 @@ Proje Ekibi: Aysu Ece Kurt, Ahmet Yıldırım, Feyza Erkarslan, Kübra Nur Turha
 2. [Durum Diyagramı](Durum-Diyagramı.md)   
 3. [Durum Senaryoları](Durum-Senaryoları.md)
 4. [Frontend](Frontend.md)
-5. [Backend] (Backend.md)
+5. [Backend](Backend.md)
 
 >>>>>>> fc61cd6b9125634a11703bb2b22313067d1cc216
