@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { AdjustmentsHorizontalIcon, ChevronDownIcon, HeartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { useAuth } from '@/src/contexts/AuthContext';
 import toast from 'react-hot-toast';
@@ -319,7 +319,7 @@ export default function MotorcyclesPage() {
                   {favorites.includes(motorcycle._id || motorcycle.id) ? (
                     <HeartIconSolid className="w-5 h-5 text-red-500" />
                   ) : (
-                    <HeartIcon className="w-5 h-5 text-gray-600 hover:text-red-500" />
+                    <HeartIconSolid className="w-5 h-5 text-gray-600 hover:text-red-500" />
                   )}
                 </button>
                 
