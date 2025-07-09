@@ -89,11 +89,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!user) {
       throw new Error('Lütfen önce giriş yapın.');
     }
-    
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/favorites`, { 
-      method: 'DELETE',
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/favorites/${productId}?productModel=${productModel}`,
+      { method: 'DELETE' }
+    );
     const result = await response.json();
     if (!response.ok) {
       throw new Error(result.message || 'Favorilerden çıkarılırken hata oluştu.');
