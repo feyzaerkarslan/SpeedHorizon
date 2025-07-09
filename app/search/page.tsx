@@ -26,7 +26,9 @@ function SearchPageContent() {
       const fetchResults = async () => {
         try {
           setLoading(true)
-          const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+          // API URL'ini ortam değişkeninden al
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+          const res = await fetch(`${apiUrl}/api/search?q=${encodeURIComponent(query)}`)
           if (!res.ok) {
             throw new Error('Arama sonuçları getirilemedi.')
           }
