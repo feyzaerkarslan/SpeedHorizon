@@ -7,7 +7,6 @@ function runTests() {
   
   // Express test
   try {
-    const app = express();
     console.log('✅ Express.js başarıyla yüklendi');
   } catch (error) {
     console.error('❌ Express.js yükleme hatası:', error);

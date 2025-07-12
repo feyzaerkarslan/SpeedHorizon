@@ -54,7 +54,7 @@ export default function RegisterPage() {
       } else {
         setError('Bu e-posta adresi zaten kullanılıyor');
       }
-    } catch (_err) {
+    } catch {
       setError('Bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setLoading(false);

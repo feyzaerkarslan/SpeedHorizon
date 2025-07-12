@@ -34,9 +34,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Orijinal sepet verisini de state'de tutarak productModel'i kaybetmeyelim.
-  const [_originalUserCart, setOriginalUserCart] = useState<Array<{ productId: string; productModel: string; quantity: number }>>([]);
-
   const fetchCart = useCallback(async () => {
     if (!user) {
       setLoading(false);
@@ -45,11 +42,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setLoading(true);
     try {
-      // Önce kullanıcının ham sepet verisini (productId ve productModel ile) alalım
       const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}`);
       const userData = await userResponse.json();
       if (!userData.success) throw new Error("Kullanıcı verisi alınamadı");
-      setOriginalUserCart(userData.data.cart);
       
       const populatedCartResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}/cart`);
       const result = await populatedCartResponse.json();

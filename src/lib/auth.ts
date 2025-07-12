@@ -16,16 +16,6 @@ interface RegisterCredentials {
   name: string;
 }
 
-// Örnek kullanıcı veritabanı
-const _users: User[] = [
-  {
-    _id: '1',
-    id: '1',
-    email: 'test@example.com',
-    name: 'Test Kullanıcı'
-  }
-];
-
 export async function login(credentials: LoginCredentials): Promise<User | null> {
   try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {

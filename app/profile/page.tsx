@@ -3,15 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/contexts/AuthContext';
-import { UserIcon, HeartIcon, ShoppingBagIcon, ArrowRightOnRectangleIcon, BellIcon } from '@heroicons/react/24/outline';
+import { UserIcon, HeartIcon, ShoppingBagIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
-
-// Kullanıcı verileri için bir tip tanımı
-interface UserProfile {
-  _id: string;
-  name: string;
-  email: string;
-}
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -22,25 +15,7 @@ export default function ProfilePage() {
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
 
-  useEffect(() => {
-    if (!loading && !user) {
-      toast.error('Bu sayfayı görüntülemek için giriş yapmalısınız.');
-      router.push('/auth/login');
-    }
-  }, [user, loading, router]);
-
-  useEffect(() => {
-    if (user && activeTab === 'favorites') {
-      loadFavorites();
-    }
-  }, [user, activeTab]);
-
-  useEffect(() => {
-    if (user && activeTab === 'orders') {
-      loadOrders();
-    }
-  }, [user, activeTab]);
-
+  // loadFavorites ve loadOrders fonksiyonlarını useEffect'ten önce tanımla
   const loadFavorites = async () => {
     try {
       setLoadingFavorites(true);
@@ -68,6 +43,25 @@ export default function ProfilePage() {
       setLoadingOrders(false);
     }
   };
+
+  useEffect(() => {
+    if (!loading && !user) {
+      toast.error('Bu sayfayı görüntülemek için giriş yapmalısınız.');
+      router.push('/auth/login');
+    }
+  }, [user, loading, router]);
+
+  useEffect(() => {
+    if (user && activeTab === 'favorites') {
+      loadFavorites();
+    }
+  }, [user, activeTab, loadFavorites]);
+
+  useEffect(() => {
+    if (user && activeTab === 'orders') {
+      loadOrders();
+    }
+  }, [user, activeTab, loadOrders]);
 
   const handleRemoveFavorite = async (productId: string, productModel: string) => {
     try {

@@ -50,12 +50,6 @@ export default function Scooters() {
     fetchScooters();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      loadFavorites();
-    }
-  }, [user]);
-
   const loadFavorites = async () => {
     try {
       setLoadingFavorites(true);
@@ -68,6 +62,12 @@ export default function Scooters() {
       setLoadingFavorites(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      loadFavorites();
+    }
+  }, [user, loadFavorites]);
 
   const handleFavoriteToggle = async (scooterId: string, e: React.MouseEvent) => {
     e.preventDefault();

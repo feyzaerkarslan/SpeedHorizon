@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Tab } from '@headlessui/react';
 import { TruckIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { classNames } from '../../../src/lib/utils';
 import MotorcycleActions from '../../../components/MotorcycleActions';
 import MotorcycleImageGallery from '../../../components/MotorcycleImageGallery';
 
@@ -14,8 +12,12 @@ interface Motorcycle {
   images: string[];
   description: string;
   features: string[];
-  specs: any;
-  colors: any[];
+  specs: {
+    motor: string;
+    maksGüç: string;
+    ağırlık: string;
+  };
+  colors: { name: string; hex: string }[];
 }
 
 async function getMotorcycle(id: string): Promise<Motorcycle | null> {

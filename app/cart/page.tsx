@@ -14,7 +14,6 @@ export default function CartPage() {
   const { user } = useAuth();
   const router = useRouter();
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
-  const [ordering, setOrdering] = useState(false);
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -33,13 +32,12 @@ export default function CartPage() {
     }
   };
 
-  const _handleOrder = async () => {
+  const handleOrder = async () => {
     if (!user) {
       toast.error('Sipariş verebilmek için giriş yapmalısınız.');
       router.push('/auth/login');
       return;
     }
-    setOrdering(true);
     try {
       const orderData = {
         user: user._id,
@@ -76,10 +74,8 @@ export default function CartPage() {
       } else {
         toast.error(data.message || 'Sipariş oluşturulamadı.');
       }
-    } catch (_err) {
+    } catch (err) {
       toast.error('Sipariş sırasında bir hata oluştu.');
-    } finally {
-      setOrdering(false);
     }
   };
 

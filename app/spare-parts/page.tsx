@@ -29,6 +29,20 @@ export default function SpareParts() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
 
+  // loadFavorites fonksiyonunu useEffect'ten önce tanımla
+  const loadFavorites = async () => {
+    try {
+      setLoadingFavorites(true);
+      const userFavorites = await getFavorites();
+      const favoriteIds = userFavorites.map(fav => fav._id);
+      setFavorites(favoriteIds);
+    } catch (error) {
+      console.error('Favoriler yüklenirken hata:', error);
+    } finally {
+      setLoadingFavorites(false);
+    }
+  };
+
   useEffect(() => {
     const fetchSpareParts = async () => {
       try {
@@ -53,20 +67,7 @@ export default function SpareParts() {
     if (user) {
       loadFavorites();
     }
-  }, [user]);
-
-  const loadFavorites = async () => {
-    try {
-      setLoadingFavorites(true);
-      const userFavorites = await getFavorites();
-      const favoriteIds = userFavorites.map(fav => fav._id);
-      setFavorites(favoriteIds);
-    } catch (error) {
-      console.error('Favoriler yüklenirken hata:', error);
-    } finally {
-      setLoadingFavorites(false);
-    }
-  };
+  }, [user, loadFavorites]);
 
   const handleFavoriteToggle = async (partId: string, e: React.MouseEvent) => {
     e.preventDefault();

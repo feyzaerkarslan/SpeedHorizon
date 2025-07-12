@@ -26,7 +26,7 @@ export default function RegisterPage() {
       } else {
         setError(result.message || 'Kayıt sırasında bir hata oluştu.');
       }
-    } catch (_err) {
+    } catch {
       setError('Sunucu hatası!');
     }
   };

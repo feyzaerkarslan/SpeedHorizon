@@ -34,12 +34,6 @@ export default function MotorcyclesPage() {
       });
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      loadFavorites();
-    }
-  }, [user]);
-
   const loadFavorites = async () => {
     try {
       setLoadingFavorites(true);
@@ -52,6 +46,12 @@ export default function MotorcyclesPage() {
       setLoadingFavorites(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      loadFavorites();
+    }
+  }, [user, loadFavorites]);
 
   const handleFavoriteToggle = async (motorcycleId: string, e: React.MouseEvent) => {
     e.preventDefault();

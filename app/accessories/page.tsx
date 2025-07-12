@@ -30,6 +30,19 @@ export default function Accessories() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
 
+  const loadFavorites = async () => {
+    try {
+      setLoadingFavorites(true);
+      const userFavorites = await getFavorites();
+      const favoriteIds = userFavorites.map(fav => fav._id);
+      setFavorites(favoriteIds);
+    } catch (error) {
+      console.error('Favoriler yüklenirken hata:', error);
+    } finally {
+      setLoadingFavorites(false);
+    }
+  };
+
   useEffect(() => {
     const fetchAccessories = async () => {
       try {
@@ -54,20 +67,7 @@ export default function Accessories() {
     if (user) {
       loadFavorites();
     }
-  }, [user]);
-
-  const loadFavorites = async () => {
-    try {
-      setLoadingFavorites(true);
-      const userFavorites = await getFavorites();
-      const favoriteIds = userFavorites.map(fav => fav._id);
-      setFavorites(favoriteIds);
-    } catch (error) {
-      console.error('Favoriler yüklenirken hata:', error);
-    } finally {
-      setLoadingFavorites(false);
-    }
-  };
+  }, [user, loadFavorites]);
 
   const handleFavoriteToggle = async (accessoryId: string, e: React.MouseEvent) => {
     e.preventDefault();

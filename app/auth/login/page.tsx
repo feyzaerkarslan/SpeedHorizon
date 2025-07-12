@@ -19,7 +19,7 @@ function LoginContent() {
   const { login } = useAuth();
   const justRegistered = searchParams.get('registered');
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginInputs>();
+  const { register, handleSubmit, formState: { isSubmitting } } = useForm<LoginInputs>();
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
      if (!data.email || !data.password) {
