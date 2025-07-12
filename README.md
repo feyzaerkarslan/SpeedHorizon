@@ -2,6 +2,8 @@
 
 Modern motosiklet ve scooter satış platformu.
 
+<!-- Test commit for CI/CD pipeline -->
+
 ## 🚀 CI/CD Pipeline
 
 Bu proje GitHub Actions ile otomatik CI/CD pipeline kullanmaktadır.

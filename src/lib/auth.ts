@@ -17,7 +17,7 @@ interface RegisterCredentials {
 }
 
 // Örnek kullanıcı veritabanı
-const users: User[] = [
+const _users: User[] = [
   {
     _id: '1',
     id: '1',
@@ -55,7 +55,7 @@ export async function login(credentials: LoginCredentials): Promise<User | null>
   }
 }
 
-export async function register(credentials: RegisterCredentials): Promise<any> {
+export async function register(credentials: RegisterCredentials): Promise<{ success: boolean; message?: string }> {
   const response = await fetch('http://localhost:5001/api/register', {
     method: 'POST',
     headers: {

@@ -74,8 +74,9 @@ export default function ProfilePage() {
       await removeFromFavorites(productId, productModel);
       setFavorites(prev => prev.filter(fav => fav._id !== productId));
       toast.success('Favorilerden çıkarıldı.');
-    } catch (error: any) {
-      toast.error(error.message || 'Favorilerden çıkarılırken bir hata oluştu.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Bir hata oluştu.';
+      toast.error(errorMessage);
     }
   };
 

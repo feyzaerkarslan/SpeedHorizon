@@ -35,7 +35,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   // Orijinal sepet verisini de state'de tutarak productModel'i kaybetmeyelim.
-  const [originalUserCart, setOriginalUserCart] = useState<any[]>([]);
+  const [_originalUserCart, setOriginalUserCart] = useState<Array<{ productId: string; productModel: string; quantity: number }>>([]);
 
   const fetchCart = useCallback(async () => {
     if (!user) {
@@ -55,9 +55,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const result = await populatedCartResponse.json();
 
       if (populatedCartResponse.ok) {
-        const originalCartMap = new Map(userData.data.cart.map((item: any) => [item.productId.toString(), item.productModel]));
+        const originalCartMap = new Map(userData.data.cart.map((item: { productId: string; productModel: string }) => [item.productId.toString(), item.productModel]));
         
-        const cartWithProductType = result.data.map((item: any) => ({
+        const cartWithProductType = result.data.map((item: { _id: string; name: string; price: number; images: string[]; quantity: number }) => ({
           ...item,
           productType: originalCartMap.get(item._id.toString()),
           productModel: originalCartMap.get(item._id.toString()),
@@ -99,8 +99,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         throw new Error(result.message);
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Ürün sepete eklenemedi.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Ürün sepete eklenemedi.';
+      toast.error(errorMessage);
     }
   };
 
@@ -117,8 +118,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         throw new Error(result.message);
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Ürün sepetten çıkarılamadı.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Ürün sepetten çıkarılamadı.';
+      toast.error(errorMessage);
     }
   };
 
@@ -140,8 +142,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         throw new Error(result.message);
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Ürün miktarı güncellenemedi.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Ürün miktarı güncellenemedi.';
+      toast.error(errorMessage);
     }
   };
 
@@ -161,8 +164,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         throw new Error(result.message);
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Sepet temizlenirken bir hata oluştu.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Sepet temizlenirken bir hata oluştu.';
+      toast.error(errorMessage);
     }
   }, [user]);
 

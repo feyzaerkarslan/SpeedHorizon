@@ -29,7 +29,7 @@ export default function DiscountedProductsPage() {
         const data = await res.json()
         let products = data
         if (Array.isArray(data)) {
-          products = data.map((item: any) => ({
+          products = data.map((item: { _id: string; name: string; image: string; originalPrice: number; discountedPrice: number; productType: string; productId: string }) => ({
             _id: item._id,
             name: item.name,
             description: '',
@@ -43,8 +43,9 @@ export default function DiscountedProductsPage() {
           products = data.data
         }
         setProducts(products)
-      } catch (err: any) {
-        setError(err.message)
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Bir hata oluştu.';
+        setError(errorMessage);
       } finally {
         setLoading(false)
       }

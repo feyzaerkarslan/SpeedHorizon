@@ -30,8 +30,9 @@ function LoginContent() {
       await login(data.email, data.password);
       toast.success('Başarıyla giriş yapıldı!');
       router.push('/');
-    } catch (error: any) {
-      toast.error(error.message || 'Giriş işlemi sırasında bir hata oluştu.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Bir hata oluştu.';
+      toast.error(errorMessage);
     }
   };
 

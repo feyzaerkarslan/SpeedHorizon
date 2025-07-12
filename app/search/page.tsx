@@ -38,8 +38,9 @@ function SearchPageContent() {
           } else {
             throw new Error(data.message || 'Bir hata oluştu.')
           }
-        } catch (err: any) {
-          setError(err.message)
+        } catch (err: unknown) {
+          const errorMessage = err instanceof Error ? err.message : 'Bir hata oluştu.';
+          setError(errorMessage);
         } finally {
           setLoading(false)
         }

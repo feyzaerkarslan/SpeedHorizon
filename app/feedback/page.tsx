@@ -47,8 +47,9 @@ export default function Feedback() {
       } else {
         throw new Error(result.message || 'Geri bildirim gönderilemedi.');
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Bir hata oluştu.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

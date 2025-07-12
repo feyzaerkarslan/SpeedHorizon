@@ -33,7 +33,7 @@ export default function CartPage() {
     }
   };
 
-  const handleOrder = async () => {
+  const _handleOrder = async () => {
     if (!user) {
       toast.error('Sipariş verebilmek için giriş yapmalısınız.');
       router.push('/auth/login');
@@ -76,7 +76,7 @@ export default function CartPage() {
       } else {
         toast.error(data.message || 'Sipariş oluşturulamadı.');
       }
-    } catch (err) {
+    } catch (_err) {
       toast.error('Sipariş sırasında bir hata oluştu.');
     } finally {
       setOrdering(false);

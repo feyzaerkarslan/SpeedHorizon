@@ -90,8 +90,9 @@ export default function Accessories() {
         setFavorites(prev => [...prev, accessoryId]);
         toast.success('Favorilere eklendi.');
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Bir hata oluştu.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Bir hata oluştu.';
+      toast.error(errorMessage);
     }
   };
 
@@ -143,7 +144,7 @@ export default function Accessories() {
             {['all', 'güvenlik', 'konfor', 'stil', 'bakım', 'elektronik'].map(category => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category as any)}
+                onClick={() => setSelectedCategory(category as 'all' | 'güvenlik' | 'konfor' | 'stil' | 'bakım' | 'elektronik')}
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                   selectedCategory === category
                     ? 'bg-blue-600 text-white shadow'

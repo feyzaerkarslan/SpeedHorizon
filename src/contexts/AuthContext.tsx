@@ -17,7 +17,7 @@ interface AuthContextType {
   logout: () => void;
   addToFavorites: (productId: string, productModel: string) => Promise<void>;
   removeFromFavorites: (productId: string, productModel: string) => Promise<void>;
-  getFavorites: () => Promise<any[]>;
+  getFavorites: () => Promise<Array<{ _id: string; productId: string; productModel: string }>>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const getFavorites = async (): Promise<any[]> => {
+  const getFavorites = async (): Promise<Array<{ _id: string; productId: string; productModel: string }>> => {
     if (!user) {
       return [];
     }

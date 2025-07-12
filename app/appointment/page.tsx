@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CalendarIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
 const availableTimeSlots = [
@@ -30,7 +30,7 @@ export default function Appointment() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  // const [_showConfirmation, _setShowConfirmation] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const validateForm = () => {
@@ -128,8 +128,9 @@ export default function Appointment() {
       } else {
         throw new Error(result.message || 'Randevu oluşturulamadı.');
       }
-    } catch (error: any) {
-      toast.error(error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Bir hata oluştu. Lütfen tekrar deneyin.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

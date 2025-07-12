@@ -9,7 +9,8 @@
     "lint": "next lint",
     "export": "next export",
     "deploy": "next build && (type nul > out\\.nojekyll) && (type nul > out\\CNAME) && (echo speedhorizon.online > out\\CNAME) && npx gh-pages --repo https://github.com/Eccekurtt/SpeedHorizon.git -d out",
-    "backend": "node src/api/server.js"
+    "backend": "node src/api/server.js",
+    "test": "node test.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
