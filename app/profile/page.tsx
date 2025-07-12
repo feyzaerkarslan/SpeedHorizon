@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/contexts/AuthContext';
 import { UserIcon, HeartIcon, ShoppingBagIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
@@ -16,7 +16,7 @@ export default function ProfilePage() {
   const [loadingOrders, setLoadingOrders] = useState(false);
 
   // loadFavorites ve loadOrders fonksiyonlarını useEffect'ten önce tanımla
-  const loadFavorites = async () => {
+  const loadFavorites = useCallback(async () => {
     try {
       setLoadingFavorites(true);
       const userFavorites = await getFavorites();
@@ -27,9 +27,9 @@ export default function ProfilePage() {
     } finally {
       setLoadingFavorites(false);
     }
-  };
+  }, [getFavorites]);
 
-  const loadOrders = async () => {
+  const loadOrders = useCallback(async () => {
     try {
       setLoadingOrders(true);
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders?userId=${user._id}`);
@@ -42,7 +42,7 @@ export default function ProfilePage() {
     } finally {
       setLoadingOrders(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (!loading && !user) {

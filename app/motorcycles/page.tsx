@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { AdjustmentsHorizontalIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
@@ -34,7 +34,7 @@ export default function MotorcyclesPage() {
       });
   }, []);
 
-  const loadFavorites = async () => {
+  const loadFavorites = useCallback(async () => {
     try {
       setLoadingFavorites(true);
       const userFavorites = await getFavorites();
@@ -45,7 +45,7 @@ export default function MotorcyclesPage() {
     } finally {
       setLoadingFavorites(false);
     }
-  };
+  }, [getFavorites]);
 
   useEffect(() => {
     if (user) {

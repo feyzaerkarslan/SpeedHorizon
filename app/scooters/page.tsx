@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
@@ -50,7 +50,7 @@ export default function Scooters() {
     fetchScooters();
   }, []);
 
-  const loadFavorites = async () => {
+  const loadFavorites = useCallback(async () => {
     try {
       setLoadingFavorites(true);
       const userFavorites = await getFavorites();
@@ -61,7 +61,7 @@ export default function Scooters() {
     } finally {
       setLoadingFavorites(false);
     }
-  };
+  }, [getFavorites]);
 
   useEffect(() => {
     if (user) {

@@ -5,14 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { XCircleIcon, ShoppingCartIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { useAuth } from '@/src/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 export default function CartPage() {
   const { cart, loading, removeFromCart, cartCount, updateQuantity, clearCart } = useCart();
-  const { user } = useAuth();
-  const router = useRouter();
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);

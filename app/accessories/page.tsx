@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ShoppingCartIcon, MagnifyingGlassIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
@@ -30,7 +30,7 @@ export default function Accessories() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
 
-  const loadFavorites = async () => {
+  const loadFavorites = useCallback(async () => {
     try {
       setLoadingFavorites(true);
       const userFavorites = await getFavorites();
@@ -41,7 +41,7 @@ export default function Accessories() {
     } finally {
       setLoadingFavorites(false);
     }
-  };
+  }, [getFavorites]);
 
   useEffect(() => {
     const fetchAccessories = async () => {
