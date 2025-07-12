@@ -38,6 +38,17 @@ async function getMotorcycle(id: string): Promise<Motorcycle | null> {
   }
 }
 
+export async function generateStaticParams() {
+  return [
+    { id: 'mt-09' },
+    { id: 'r1' },
+    { id: 'tracer-9-gt' },
+    { id: 'tenere-700' },
+    { id: 'yz450f' },
+    { id: 'xsr900' },
+  ];
+}
+
 export default async function MotorcycleDetailsPage({ params }: { params: { id: string } }) {
   const motorcycle = await getMotorcycle(params.id);
 
@@ -110,7 +121,7 @@ export default async function MotorcycleDetailsPage({ params }: { params: { id: 
                     <TruckIcon className="h-6 w-6 text-blue-600 mr-3 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold">Hızlı ve Güvenli Teslimat</h4>
-                      <p className="text-gray-600 text-sm">Türkiye'nin her yerine sigortalı gönderim.</p>
+                      <p className="text-gray-600 text-sm">Türkiye&apos;nin her yerine sigortalı gönderim.</p>
                     </div>
                   </li>
                   <li className="flex items-start">

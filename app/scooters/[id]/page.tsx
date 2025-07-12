@@ -249,7 +249,7 @@ export default function ScooterDetail({ params: paramsPromise }: { params: Promi
               <TruckIcon className="h-6 w-6 text-blue-600 mr-3 flex-shrink-0" />
               <div>
                 <h4 className="font-medium">Ücretsiz Teslimat</h4>
-                <p className="text-sm text-gray-600">Tüm Türkiye'ye ücretsiz teslimat</p>
+                <p className="text-sm text-gray-600">Tüm Türkiye&apos;ye ücretsiz teslimat</p>
               </div>
             </div>
             <div className="flex items-start">
@@ -264,7 +264,7 @@ export default function ScooterDetail({ params: paramsPromise }: { params: Promi
 
         <div className="bg-gray-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold mb-4">Ödeme Seçenekleri</h3>
-          <p className="text-gray-700 mb-4">12 aya varan taksit seçenekleri ile SpeedHorizon'dan satın alabilirsiniz.</p>
+          <p className="text-gray-700 mb-4">12 aya varan taksit seçenekleri ile SpeedHorizon&apos;dan satın alabilirsiniz.</p>
           <Link href="/financing" className="text-blue-600 hover:text-blue-800 font-medium">
             Finansman seçeneklerini görüntüle
           </Link>
