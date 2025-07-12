@@ -32,53 +32,6 @@ export default function CartPage() {
     }
   };
 
-  const handleOrder = async () => {
-    if (!user) {
-      toast.error('Sipariş verebilmek için giriş yapmalısınız.');
-      router.push('/auth/login');
-      return;
-    }
-    try {
-      const orderData = {
-        user: user._id,
-        items: cart.map(item => ({
-          productId: item._id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-          productType: item.productType || item.productModel || '',
-          productModel: item.productModel || item.productType || ''
-        })),
-        totalAmount: subtotal,
-        shippingAddress: {
-          fullName: user.name,
-          address: 'Test Adresi',
-          city: 'Test Şehir',
-          postalCode: '00000',
-          country: 'Türkiye'
-        },
-        paymentType: 'cart',
-        status: 'Pending',
-        createdAt: new Date(),
-      };
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData)
-      });
-      const data = await res.json();
-      if (data.success) {
-        toast.success('Siparişiniz başarıyla oluşturuldu!');
-        clearCart();
-        router.push('/profile');
-      } else {
-        toast.error(data.message || 'Sipariş oluşturulamadı.');
-      }
-    } catch (err) {
-      toast.error('Sipariş sırasında bir hata oluştu.');
-    }
-  };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
