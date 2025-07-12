@@ -32,6 +32,14 @@ npm run backend
 
 ## 📚 Dokümantasyon
 
+1. [Gereksinim Analizi](Gereksinim-Analizi.md)
+2. [Durum Diyagramı](Durum-Diyagramı.md)   
+3. [Durum Senaryoları](Durum-Senaryoları.md)
+4. [Frontend](Frontend.md)
+5. [Backend](Backend.md)
+
+## 📚 Ek Dokümantasyon
+
 - `GITHUB_ACTIONS_SETUP.md`: CI/CD kurulum rehberi
 - `NETLIFY_SETUP.md`: Netlify token alma
 - `RENDER_SETUP.md`: Render API key alma
