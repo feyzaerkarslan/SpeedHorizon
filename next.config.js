@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   eslint: {
     // ESLint hatalarını build esnasında atlayalım
     ignoreDuringBuilds: true,

@@ -26,9 +26,6 @@ jobs:
       env:
         NEXT_PUBLIC_API_URL: https://speedhorizon.onrender.com
 
-    - name: Export
-      run: npm run export
-      
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v3.0
       with:

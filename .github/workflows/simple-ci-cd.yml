@@ -42,9 +42,6 @@ jobs:
       env:
         NEXT_PUBLIC_API_URL: https://speedhorizon.onrender.com
 
-    - name: Export Static Site
-      run: npm run export
-
   # Frontend Deployment (Netlify)
   deploy-frontend:
     needs: test-and-build

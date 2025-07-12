@@ -215,14 +215,14 @@ export default function ProfilePage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                           {favorites.map((product) => (
                             <div key={product._id} className="flex flex-col items-center">
-                              <img src={product.image} alt={product.name} className="w-32 h-32 object-cover rounded-lg mb-2" />
-                              <h4 className="text-lg font-semibold">{product.name}</h4>
-                              <button
+                              {/* <img src={product.image} alt={product.name} className="w-32 h-32 object-cover rounded-lg mb-2" /> */}
+                              {/* <h4 className="text-lg font-semibold">{product.name}</h4> */}
+                              {/* <button
                                 onClick={() => handleRemoveFavorite(product._id, product.model)}
                                 className="mt-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                               >
                                 Favorilerden Çıkar
-                              </button>
+                              </button> */}
                             </div>
                           ))}
                         </div>
