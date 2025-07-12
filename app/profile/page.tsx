@@ -6,13 +6,28 @@ import { useAuth } from '@/src/contexts/AuthContext';
 import { UserIcon, HeartIcon, ShoppingBagIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
+type OrderItem = {
+  _id: string;
+  name: string;
+  quantity: number;
+  price: number;
+};
+
+type Order = {
+  _id: string;
+  createdAt: string;
+  totalAmount: number;
+  status: string;
+  items: OrderItem[];
+};
+
 export default function ProfilePage() {
   const router = useRouter();
-  const { user, loading, logout, getFavorites, removeFromFavorites } = useAuth();
+  const { user, loading, logout, getFavorites } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [favorites, setFavorites] = useState([]);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
 
   // loadFavorites ve loadOrders fonksiyonlarını useEffect'ten önce tanımla
@@ -21,8 +36,8 @@ export default function ProfilePage() {
       setLoadingFavorites(true);
       const userFavorites = await getFavorites();
       setFavorites(userFavorites);
-    } catch (error) {
-      console.error('Favoriler yüklenirken hata:', error);
+    } catch {
+      console.error('Favoriler yüklenirken hata');
       toast.error('Favoriler yüklenirken bir hata oluştu.');
     } finally {
       setLoadingFavorites(false);
@@ -36,7 +51,7 @@ export default function ProfilePage() {
       const data = await res.json();
       if (data.success) setOrders(data.data);
       else setOrders([]);
-    } catch (error) {
+    } catch {
       setOrders([]);
       toast.error('Siparişler yüklenirken bir hata oluştu.');
     } finally {
@@ -62,17 +77,6 @@ export default function ProfilePage() {
       loadOrders();
     }
   }, [user, activeTab, loadOrders]);
-
-  const handleRemoveFavorite = async (productId: string, productModel: string) => {
-    try {
-      await removeFromFavorites(productId, productModel);
-      setFavorites(prev => prev.filter(fav => fav._id !== productId));
-      toast.success('Favorilerden çıkarıldı.');
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Bir hata oluştu.';
-      toast.error(errorMessage);
-    }
-  };
 
   const handleLogout = () => {
     logout();
@@ -175,7 +179,7 @@ export default function ProfilePage() {
                       <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mx-auto"></div>
                     ) : orders.length > 0 ? (
                       <div className="space-y-4">
-                        {orders.map((order: any) => (
+                        {orders.map((order: Order) => (
                           <div key={order._id} className="border rounded-lg p-4 text-left">
                             <div className="font-semibold mb-2">Sipariş No: {order._id}</div>
                             <div className="text-sm text-gray-600 mb-1">Tarih: {new Date(order.createdAt).toLocaleString('tr-TR')}</div>
@@ -184,7 +188,7 @@ export default function ProfilePage() {
                             <div className="mt-2">
                               <span className="font-semibold">Ürünler:</span>
                               <ul className="list-disc ml-6">
-                                {order.items.map((item: any, idx: number) => (
+                                {order.items.map((item: OrderItem, idx: number) => (
                                   <li key={idx}>{item.name} x {item.quantity} ({item.price?.toLocaleString('tr-TR')} TL)</li>
                                 ))}
                               </ul>

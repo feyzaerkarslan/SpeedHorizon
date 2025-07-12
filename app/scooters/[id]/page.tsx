@@ -64,7 +64,7 @@ export default function ScooterDetail({ params: paramsPromise }: { params: Promi
       <div className="max-w-7xl mx-auto px-4 py-8 text-center">
         <h1 className="text-2xl font-bold">Scooter bulunamadı</h1>
         <Link href="/scooters" className="text-blue-600 hover:text-blue-700 mt-4 inline-block">
-          Tüm Scooter'lar
+          Tüm Scooter&apos;lar
         </Link>
       </div>
     );
@@ -77,7 +77,7 @@ export default function ScooterDetail({ params: paramsPromise }: { params: Promi
         className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8"
       >
         <ArrowLeftIcon className="w-4 h-4 mr-2" />
-        Tüm Scooter'lar
+        Tüm Scooter&apos;lar
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

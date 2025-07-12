@@ -26,7 +26,7 @@ const PaymentPage = () => {
   const { user } = useAuth();
   const router = useRouter();
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<Inputs>();
-  const { register: registerCard, handleSubmit: handleCardSubmit, formState: { errors: cardErrors } } = useForm<CardInputs>();
+  const { register: registerCard, formState: { errors: cardErrors } } = useForm<CardInputs>();
   const [paymentType, setPaymentType] = useState<'cart' | 'cash'>('cart');
   const [installment, setInstallment] = useState<number>(1);
   const [paymentError, setPaymentError] = useState<string | null>(null);

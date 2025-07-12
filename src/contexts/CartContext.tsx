@@ -62,7 +62,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         toast.error(result.message || 'Sepet yüklenemedi.');
         setCart([]);
       }
-    } catch (error) {
+    } catch {
       toast.error('Sepet yüklenirken bir hata oluştu.');
       setCart([]);
     } finally {

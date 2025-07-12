@@ -523,7 +523,7 @@ app.get('/api/discounted-products', async (req, res) => {
   try {
     const discountedProducts = await DiscountedProduct.find({});
     res.json(discountedProducts);
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: 'İndirimli ürünler alınamadı.' });
   }
 });
