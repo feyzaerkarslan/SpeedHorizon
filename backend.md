@@ -1,4 +1,4 @@
-Domain Adresi : [https://speedhorizon.online/](https://speedhorizon.online/)
+Domain Adresi : [https://speedhorizon.online/](https://speedhorizon.online/)                                                                              
 Docker : Kullanılmadı
 REST API : Kullanıldı
 Redis : Kullanılmadı
