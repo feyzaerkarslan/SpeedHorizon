@@ -1,0 +1,18 @@
+[
+  {"name": "SpeedHorizon Sport X1", "category": "scooter", "price": 125000, "currency": "₺", "description": "150cc Sport Scooter"},
+  {"name": "SpeedHorizon Sport X2", "category": "scooter", "price": 145000, "currency": "₺", "description": "200cc Sport Scooter"},
+  {"name": "SpeedHorizon Urban E1", "category": "scooter", "price": 95000, "currency": "₺", "description": "125cc Urban Mobility"},
+  {"name": "SpeedHorizon Urban E2", "category": "scooter", "price": 105000, "currency": "₺", "description": "150cc Urban Mobility"},
+  {"name": "Premium Kask", "category": "aksesuar", "price": 2500, "currency": "₺", "description": "ECE 22.05 Sertifikalı"},
+  {"name": "Yağmurluk Seti", "category": "aksesuar", "price": 1200, "currency": "₺", "description": "Su Geçirmez, Nefes Alabilen"},
+  {"name": "Özel Tasarım Koltuk", "category": "aksesuar", "price": 3500, "currency": "₺", "description": "Hafızalı Köpük, Su Geçirmez"},
+  {"name": "GPS Navigasyon", "category": "aksesuar", "price": 4500, "currency": "₺", "description": "Su Geçirmez, Bluetooth Bağlantılı"},
+  {"name": "Motor Yağı Filtresi", "category": "yedek-parça", "price": 150, "currency": "₺", "description": "Orijinal Yedek Parça"},
+  {"name": "Ön Fren Balatası", "category": "yedek-parça", "price": 250, "currency": "₺", "description": "Premium Fren Balatası"},
+  {"name": "Akü", "category": "yedek-parça", "price": 1200, "currency": "₺", "description": "12V 7Ah"},
+  {"name": "Ön Lastik", "category": "yedek-parça", "price": 850, "currency": "₺", "description": "120/70-14"},
+  {"name": "Periyodik Bakım", "category": "servis", "price": 1500, "currency": "₺", "description": "Yağ Değişimi, Filtre Kontrolü, Genel Bakım"},
+  {"name": "Fren Sistemi Bakımı", "category": "servis", "price": 800, "currency": "₺", "description": "Fren Balatası Değişimi, Hidrolik Kontrol"},
+  {"name": "Motor Revizyonu", "category": "servis", "price": 3500, "currency": "₺", "description": "Motor Parçaları Kontrolü ve Bakımı"},
+  {"name": "Elektronik Sistem Kontrolü", "category": "servis", "price": 600, "currency": "₺", "description": "Sensör Kontrolü, Bağlantı Testi"}
+] 
