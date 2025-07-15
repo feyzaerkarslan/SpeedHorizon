@@ -531,8 +531,7 @@ app.get('/api/search', async (req, res) => {
 
     const [motorcycles, scooters, spareParts, accessories] = await Promise.all(searchTasks);
     
-    // Her bir ürüne hangi kategoriye ait olduğunu belirtmek için bir 'type' alanı ekleyelim.
-    // Bu, frontend'de doğru linkleri oluşturmak için kullanışlı olacaktır.
+    //
     const results = [
       ...motorcycles.map(item => ({ ...item, type: 'motorcycle', href: `/motorcycles/${item._id}` })),
       ...scooters.map(item => ({ ...item, type: 'scooter', href: `/scooters/${item._id}` })),
