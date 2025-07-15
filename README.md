@@ -39,6 +39,7 @@ npm run backend
 3. [Durum Senaryoları](Durum-Senaryoları.md)
 4. [Frontend](Frontend.md)
 5. [Backend](Backend.md)
+6. [Video sunum](Video-Sunum.md)
 
 ## 📚 Ek Dokümantasyon
 
