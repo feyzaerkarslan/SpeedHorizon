@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export', // Statik export kaldırıldı
   eslint: {
     // ESLint hatalarını build esnasında atlayalım
     ignoreDuringBuilds: true,
