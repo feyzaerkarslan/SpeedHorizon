@@ -14,6 +14,7 @@ const bcrypt = require('bcryptjs');
 const Order = require('./Order');
 const DiscountedProduct = require('./DiscountedProduct');
 const CreditCard = require('./CreditCard');
+const PriceList = require('./PriceList');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -107,6 +108,27 @@ app.get('/api/accessories', async (req, res) => {
     res.json({ success: true, data: accessories });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Veritabanı hatası', error: err.message });
+  }
+});
+
+// Tüm fiyat listesini dönen endpoint
+app.get('/api/pricelist', async (req, res) => {
+  try {
+    const prices = await PriceList.find();
+    res.json({ success: true, data: prices });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Veritabanı hatası', error: err.message });
+  }
+});
+
+// Yeni fiyat ekleyen endpoint (opsiyonel, admin için)
+app.post('/api/pricelist', async (req, res) => {
+  try {
+    const price = new PriceList(req.body);
+    await price.save();
+    res.json({ success: true, data: price });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
 });
 
