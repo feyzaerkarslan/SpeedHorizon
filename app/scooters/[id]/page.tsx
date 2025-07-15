@@ -22,17 +22,6 @@ interface Scooter {
   specs: { [key: string]: string };
 }
 
-export async function generateStaticParams() {
-  // API'den scooter listesini çekiyoruz
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001"}/api/scooters`);
-  const data = await res.json();
-
-  // Her scooter için bir parametre döndür
-  return data.data.map((scooter: any) => ({
-    id: scooter._id,
-  }));
-}
-
 export default function ScooterDetail({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
   const params = use(paramsPromise);
   const { addToCart } = useCart();
